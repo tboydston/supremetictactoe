@@ -1,6 +1,6 @@
 local config = {
     debug = true,
-    startScene = "getUsername",
+    startScene = "tictactoe",
     screenSize = {1024,768}
 }
 

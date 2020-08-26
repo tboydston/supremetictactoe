@@ -9,12 +9,15 @@ Utils = require "lib/utilities"
 SceneManager = require "lib/sceneManager"
 QuipManager = require "lib/quipManager"
 Game = require "lib/game"
+MinMaxMove = require "lib/minMaxMove"
+RandomMove = require "lib/randomMove"
 
 -- Entities
 Supreme = require "entities/supreme"
 Quiper = require "entities/quiper"
--- Dialogue = require "entities/dialogue"
 UserNameForm = require "entities/userNameForm"
+TictactoeBoard = require "entities/tictactoeBoard"
+ScoreBoard = require "entities/scoreBoard"
 
 math.randomseed( os.time() )
 

@@ -1,5 +1,6 @@
 local getUsername = {
-    backgroundColor = {1,1,1}  
+    backgroundColor = {1,1,1},
+    playerName = {"","Supreme"}
 }
 
 function getUsername.load()
@@ -77,21 +78,21 @@ end
 
 function getUsername.submit()
 
+    Game.playerName = getUsername.playerName
+
     if #getUsername.form.inputText == 0 then
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooShort") )
         return 
     end
 
     if #getUsername.form.inputText > 18 and #getUsername.form.inputText <= 255 then
-        Game.player1Name = "Meatbag"
+        Game.playerName[1] = "Meatbag"
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooLong") )
         return 
     end
 
-    Game.player1Name = getUsername.form.inputText
+    Game.playerName[1] = getUsername.form.inputText
     getUsername.quiper:loadQuip(QuipManager.getRandomQuip("nameSubmitted") )
-
-
 
 end
 

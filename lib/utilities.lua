@@ -49,15 +49,13 @@ end
 -- sep       string  Deliminator
 -- return    table   Table of string seperated by deliminator. 
 function utils:split (inputstr, sep)
-    print("input "..inputstr)
-    print("sep "..sep)
+
     if sep == nil then
             sep = "%s"
     end
     local t={}
     for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-        print(str)
-            table.insert(t, str)
+        table.insert(t, str)
     end
     return t
 end
