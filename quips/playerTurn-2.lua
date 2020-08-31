@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlay",
+    type = "playerTurn",
 }
 
 quip.actions = {
@@ -8,18 +8,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="You go first, I go first."
+        value="Oh wow what a good move."
     },
     {
         action="pause",
-        value="2"
+        value="1"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="Doesn't matter to me."
+        value="I am really going to need to think about my next move."
     },
     {
         action="pause",
@@ -30,12 +30,12 @@ quip.actions = {
     }, 
     {
         action="say",
-        value="I will win either way."
+        value="Just kidding."
     },
     {
         action="pause",
-        value="2"
-    }, 
+        value="1"
+    },
     {
         action="end"
     }

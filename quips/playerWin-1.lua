@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlay",
+    type = "playerWin",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You go first, I go first."
+        value="What? How is this possible."
     },
     {
         action="pause",
@@ -19,23 +19,12 @@ quip.actions = {
     },
     {
         action="say",
-        value="Doesn't matter to me."
+        value="I must need to zap my pram or something."
     },
     {
         action="pause",
         value="2"
-    }, 
-    {
-        action="clearQuip",
-    }, 
-    {
-        action="say",
-        value="I will win either way."
     },
-    {
-        action="pause",
-        value="2"
-    }, 
     {
         action="end"
     }

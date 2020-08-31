@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlay",
+    type = "playReset",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You go first, I go first."
+        value="One of your less mentally deficient philosophers onces said."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Doesn't matter to me."
+        value="The definition of insanity is doing the same thing over and over and"
     },
     {
         action="pause",
@@ -30,12 +30,19 @@ quip.actions = {
     }, 
     {
         action="say",
-        value="I will win either way."
+        value="expecting different results."
     },
     {
         action="pause",
         value="2"
     }, 
+    {
+        action="clearQuip",
+    }, 
+    {
+        action="say",
+        value="You must be completly insane."
+    },
     {
         action="end"
     }

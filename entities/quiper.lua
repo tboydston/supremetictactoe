@@ -107,23 +107,34 @@ function quiper:blink()
 end
 
 function quiper:loadQuip(newQuip)
-    print(newQuip.type)
-    print(newQuip.actions[1].action)
-    self.currentQuip = newQuip
-    print(self.currentQuip.type)
-    print(self.currentQuip.actions[1].action)
-    self.currentActionIndex = 1
+
+    self.text = ""
+    self.textDrawIndex = 1
+    self.drawText = ""
+    self.drawingQuip = 0
+    self.cursorIndex = 1
+    self.cursorLastBlink = 0
+    self.stopIdleBlinkTime = 0
     self.quipping = 1
+    self.currentActionIndex = 1
+    self.pauseUntil = 0
+    self.currentQuip = newQuip
+
 end
 
 function quiper:updateQuip()
 
-    if self.currentActionIndex == #self.currentQuip then
+    if self.currentActionIndex == #self.currentQuip.actions then
         self.quipping = 0
         return 
     end
 
     local currenctAction = self.currentQuip.actions[self.currentActionIndex]
+
+    if  currenctAction.action == 'end' then
+        self.quipping = 0
+        return 
+    end
 
     if  currenctAction.action == 'clearQuip' then
         self.text = ""

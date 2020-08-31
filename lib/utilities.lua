@@ -27,9 +27,9 @@ function utils:deepcopy(orig)
     if orig_type == 'table' then
         copy = {}
         for orig_key, orig_value in next, orig, nil do
-            copy[self.deepcopy(orig_key)] = self.deepcopy(orig_value)
+            copy[self:deepcopy(orig_key)] = self:deepcopy(orig_value)
         end
-        setmetatable(copy, self.deepcopy(getmetatable(orig)))
+        setmetatable(copy, self:deepcopy(getmetatable(orig)))
     else -- number, string, boolean, etc
         copy = orig
     end
@@ -126,4 +126,8 @@ function utils:tableDump(o)
  end
 
 
+function utils:tablesMatch( a, b )
+    return table.concat(a) == table.concat(b)
+end
+ 
 return utils

@@ -3,10 +3,13 @@ local tictactoe = {
     playerName = {"p1","p2"},
     playerScore = {0,0},
     playerType = {"h","c"},
-    playStrategy = {"h","random"},
+    playStrategy = {"h","minMax"},
     winState = 0,
     playerMove = 1,
-    playerShapes = {"x","o"}
+    playerShapes = {"x","o"},
+    playerTurnQuipChance = 30,
+    supremeTurnQuipChance = 30,
+    drawDebug = 1
 }
 
 function tictactoe.load()
@@ -47,21 +50,50 @@ function tictactoe.load()
         location = { Game.windowWidth * 0.1 , (eyeCenter[2] - eyeRadius) },
     })
 
-    tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlay") )
+    tictactoe.debugMenu = DebugMenu:new({
+        location = { tictactoe.board.location[1] + boardWidth + Game.windowWidth *0.05 ,Game.windowHeight * 0.7},
+        debugTable = {
+            {'DEBUG'},
+            {'P1 Type:'},
+            {'Human','Computer'},
+            {'P2 Type:'},
+            {'Human','Computer'},
+            {'P1 Strategy:'},
+            {'NA','random','miniMax'},
+            {'P2 Strategy:'},
+            {'NA','random','miniMax'}
+        },
+        drawDebug = tictactoe.drawDebug
+    })
 
+    tictactoe.killScreen = KillScreen:new({
+        drawKillScreen = 1,
+        location = { Game.windowWidth / 2, 0 }
+    })
+
+    tictactoe.setDebugMenu() 
+
+    if tictactoe.drawDebug == 1 then
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlayDebug") )
+    else 
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlay") )
+    end
 
 end
 
 function tictactoe.update()
 
-    tictactoe.quiper:update()
+    
 
-    if tictactoe.playerType[tictactoe.playerMove] == "c" and tictactoe.winState == 0 then
+    if tictactoe.playerType[tictactoe.playerMove] == "c" and tictactoe.winState == 0 and tictactoe.quiper.quipping == 0 then
         
         tictactoe.processAiMove()
         tictactoe.processGameState()
 
     end
+
+    tictactoe.quiper:update()
+    tictactoe.killScreen:update()
 
 end
 
@@ -71,6 +103,9 @@ function tictactoe.draw()
     tictactoe.supreme:draw()
     tictactoe.board:draw()
     tictactoe.scoreBoard:draw()
+    tictactoe.debugMenu:draw()
+    tictactoe.killScreen:draw()
+
 
 end
 
@@ -85,16 +120,94 @@ function tictactoe.mousepressed(x, y, button, istouch)
     local clickedSquare = tictactoe.board:checkSquareClick(x,y)
     
     -- Check to see if someone clicked in a box
-    if clickedSquare > 0 and tictactoe.winState == 0 then
+    if clickedSquare > 0 and tictactoe.winState == 0 and tictactoe.playerType[tictactoe.playerMove] == "h" then
         if tictactoe.board:updateMoves(clickedSquare,tictactoe.playerShapes[tictactoe.playerMove]) == false then
             return
         end
         tictactoe.board:draw()
-    else 
-        return
+        if math.random(1,100) <= tictactoe.playerTurnQuipChance then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerTurn") )
+        end
+        tictactoe.processGameState()
+
     end
 
-    tictactoe.processGameState()
+    
+    tictactoe.processDebugClick(x,y)
+    
+
+
+end
+
+-- function do_tables_match( a, b )
+--     return table.concat(a) == table.concat(b)
+-- end
+
+function tictactoe.processDebugClick(x,y)
+
+    local clickInDebugMenu = tictactoe.debugMenu:clickInTable(x,y)
+
+    if clickInDebugMenu == false then
+        return
+    end
+    
+    if Utils:tablesMatch( clickInDebugMenu, {3,1} ) then 
+        print( "here")
+        tictactoe.playerType[1] = "h"
+
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {3,2} ) then 
+        print("here2")
+        tictactoe.playerType[1] = "c"
+        if tictactoe.playStrategy[1] == "h" then
+            tictactoe.playStrategy[1] = "random"
+        end     
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {5,1} ) then 
+        tictactoe.playerType[2] = "h"
+        tictactoe.playStrategy[2] = "h"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {5,2} )  then 
+        tictactoe.playerType[2] = "c"
+        if tictactoe.playStrategy[2] == "h" then
+            tictactoe.playStrategy[2] = "random"
+        end     
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {7,1} ) then 
+        tictactoe.playerType[1] = "h"
+        tictactoe.playStrategy[1] = "h"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {7,2} ) then 
+        tictactoe.playerType[1] = "c"
+        tictactoe.playStrategy[1] = "random"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {7,3} )then 
+        tictactoe.playerType[1] = "c"
+        tictactoe.playStrategy[1] = "minMax"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {9,1} ) then 
+        tictactoe.playerType[2] = "h"
+        tictactoe.playStrategy[2] = "h"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {9,2} ) then 
+        tictactoe.playerType[2] = "c"
+        tictactoe.playStrategy[2] = "random"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {9,3} ) then 
+        tictactoe.playerType[2] = "c"
+        tictactoe.playStrategy[2] = "minMax"
+    end 
+
+    tictactoe.setDebugMenu()
 
 end
 
@@ -185,6 +298,15 @@ function tictactoe.processAiMove()
         tictactoe.board.moves[nextMove] = tictactoe.playerShapes[tictactoe.playerMove]
     end
 
+    if tictactoe.playStrategy[tictactoe.playerMove] == "minMax" then 
+        local nextMove = MinMaxMove.chooseBestMove(tictactoe.board.moves)
+        tictactoe.board.moves[nextMove] = tictactoe.playerShapes[tictactoe.playerMove]
+    end
+
+    if math.random(1,100) <= tictactoe.supremeTurnQuipChance then
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeTurn") )
+    end
+
 
 end
 
@@ -204,6 +326,7 @@ function tictactoe.reset()
     tictactoe.playerMove = 1
     tictactoe.board:resetBoard() 
     tictactoe.scoreBoard:reset() 
+    tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playReset") )
 
 end
 
@@ -212,6 +335,60 @@ function tictactoe.updateWinState(newWinState)
     tictactoe.winState = newWinState
     tictactoe.scoreBoard.winState = newWinState
 
+    if newWinState == 3 then
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("tieMatch") )
+    end 
+
+    if tictactoe.playerType[newWinState] == "c" then
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeWin") )
+    end 
+
+    if tictactoe.playerType[newWinState] == "h" then
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerWin") )
+    end 
+
+
 end
+
+function tictactoe.setDebugMenu()
+
+    tictactoe.debugMenu.activeTable[1] = {0}
+    tictactoe.debugMenu.activeTable[2] = {0}
+    
+    if tictactoe.playerType[1] == 'h' then
+        tictactoe.debugMenu.activeTable[3] = {1,0}
+    else 
+        tictactoe.debugMenu.activeTable[3] = {0,1}
+    end
+    
+    tictactoe.debugMenu.activeTable[4] = {0}
+
+    if tictactoe.playerType[2] == 'h' then
+        tictactoe.debugMenu.activeTable[5] = {1,0}
+    else 
+        tictactoe.debugMenu.activeTable[5] = {0,1}
+    end
+
+    tictactoe.debugMenu.activeTable[6] = {0}
+
+    if tictactoe.playerType[1] == 'h' then
+        tictactoe.debugMenu.activeTable[7] = {1,0,0}
+    elseif tictactoe.playStrategy[1] == 'minMax' then
+        tictactoe.debugMenu.activeTable[7] = {0,0,1}
+    else
+        tictactoe.debugMenu.activeTable[7] = {0,1,0}
+    end
+
+    tictactoe.debugMenu.activeTable[8] = {0}
+
+    if tictactoe.playerType[2] == 'h' then
+        tictactoe.debugMenu.activeTable[9] = {1,0,0}
+    elseif tictactoe.playStrategy[2] == 'minMax' then
+        tictactoe.debugMenu.activeTable[9] = {0,0,1}
+    else
+        tictactoe.debugMenu.activeTable[9] = {0,1,0}
+    end
+
+end 
 
 return tictactoe

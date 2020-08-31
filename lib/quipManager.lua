@@ -22,7 +22,7 @@ function quipManager.load()
 end
 
 function quipManager.getRandomQuip(quipName)
-
+    print(quipName)
     return quipManager.quips[quipName][math.random(1,#quipManager.quips[quipName])]
 
 end

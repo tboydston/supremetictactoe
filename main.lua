@@ -18,6 +18,8 @@ Quiper = require "entities/quiper"
 UserNameForm = require "entities/userNameForm"
 TictactoeBoard = require "entities/tictactoeBoard"
 ScoreBoard = require "entities/scoreBoard"
+DebugMenu = require "entities/debugMenu"
+KillScreen = require "entities/killScreen"
 
 math.randomseed( os.time() )
 
