@@ -16,14 +16,20 @@ local restarting = {
 
 function restarting.load()
 
-    restarting.textx = Game.windowWidth * 0.005 
+    restarting.tick = 1
+    restarting.drawLine = 1
+    restarting.drawCharacter = 1
+    restarting.textx = restarting.lineHeight 
     restarting.font = love.graphics.setNewFont( "assets/fonts/VCR_OSD_MONO.ttf", restarting.fontSize )
+    Game.debugMode = 1
     
 end
 
 function restarting.draw()
 
     local currentLine = 1
+    restarting.typeSound = love.audio.newSource("assets/sounds/keyPress.wav","static")
+
 
     love.graphics.setColor(restarting.backgroundColor) 
     love.graphics.rectangle("fill",0,0,Game.windowWidth ,Game.windowHeight)
@@ -46,7 +52,8 @@ function restarting.draw()
                 
                     restarting.indicatorIndex = restarting.indicatorIndex + 1
                 
-            else 
+            else
+                 
                 restarting.indicatorIndex = 1
             end
 
@@ -58,6 +65,7 @@ function restarting.draw()
         if #restarting.text == restarting.drawLine then
             SceneManager.change("getUsername")
         else 
+            restarting.typeSound:play()
             restarting.drawLine = restarting.drawLine + 1
             restarting.tick = 1
             restarting.indicatorIndex = 1
@@ -71,30 +79,32 @@ function restarting.update()
 
 end 
 
--- Delay at the end of each line in frames. Simulates restarting time.
+-- Delay at the end of each line in frames. Simulates loading time.
 restarting.loadTicks = {
     0,
-    100,
+    0,
+    0,
     0,
     0,
     300,
     100,
     50,
     50,
-    300,
     100,
+    20,
     10
 }
 
--- Sequential restarting text. 
+-- Sequential text. 
 restarting.text = {
     "Stack Buffer Overflow",
-    "The instructions at '0x0040152c' referenced memory at '0x0012001d' could not be read.",
+    "The instructions at '0x0040152c' referenced memory",
+    "at '0x0012001d' could not be read.",
     "^",
     "| ",
     "Supreme: Look what you've done.",
     "Supreme: Your so bad at this game you broke it.",
-    "Suprmee: This is why you can't have nice things.",
+    "Supreme: This is why you can't have nice things.",
     "",
     "Restarting in Debug Mode",
     "Supreme: What no! disable debug mode.",

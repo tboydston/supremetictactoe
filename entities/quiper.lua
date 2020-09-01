@@ -27,6 +27,7 @@ local quiper = {
 
 function quiper:load()
     
+    self.typeSound = love.audio.newSource("assets/sounds/keyPress.wav","static")
     self.textFont = love.graphics.newFont( self.fontFile, self.fontSize )
 
 end
@@ -46,15 +47,13 @@ function quiper:update()
     end
 
     self:updateQuip()
-    
-
 
 end
 
 function quiper:draw()
 
     if self.textDrawIndex < #self.text then
-
+        self.typeSound:play()
         self.textDrawIndex = self.textDrawIndex + 1
 
         if self.textDrawIndex == #self.text then
@@ -65,8 +64,6 @@ function quiper:draw()
 
     end 
     
-
-
     local printText = string.sub ( self.text, 1, self.textDrawIndex )
     
     if self.drawingQuip == 1 then 
@@ -124,7 +121,7 @@ end
 
 function quiper:updateQuip()
 
-    if self.currentActionIndex == #self.currentQuip.actions then
+    if self.currentActionIndex > #self.currentQuip.actions then
         self.quipping = 0
         return 
     end

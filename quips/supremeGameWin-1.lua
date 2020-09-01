@@ -1,5 +1,5 @@
 local quip = {
-    type = "userNameTooShort",
+    type = "playerGameWin",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Too long"
+        value="Yes, well I don't think anyone is surprised by this outcome."
     },
     {
         action="pause",
@@ -19,15 +19,14 @@ quip.actions = {
     },
     {
         action="say",
-        value="I think i'll just call you Meatbag."
+        value="Play again?"
     },
     {
         action="pause",
         value="2"
-    }, 
+    },
     {
-        action="sceneChange",
-        value="tictactoe"
+        action="end"
     }
 }
 

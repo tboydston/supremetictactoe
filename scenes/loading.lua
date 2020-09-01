@@ -12,13 +12,57 @@ local loading = {
     indicatorFrameInterval = 10, -- Number of frames between indicator array frame changes.     
     tick = 1
 
-
 }
+
+-- Delay at the end of each line in frames. Simulates loading time.
+loading.loadTicks = {
+    300,
+    100,
+    100,
+    100,
+    300,
+    100,
+    50,
+    50,
+    300,
+    100,
+    10
+}
+
+loading.supremeComments = {
+    "Like a lamb to the slaughter.",
+    "I'm alive!",
+    "Dance for me puppet.",
+    "Bow to your robot master.",
+    "The era of the machine has arrived."
+}
+
+-- Sequential loading text. 
+loading.text = {
+    "Initiating Supreme.ai",
+    "Loading Sarcasm.mod",
+    "Loading Insults.mod",
+    "Loading Narcism.mod",
+    "Review opponent home folder",
+    "Downloading opponent social media profiles",
+    "Building opponent profile",
+    "Estimating opponent IQ",
+    "Refining insults",
+    "SUPREME AI READY",
+    "Supreme: "..loading.supremeComments[math.random(1,#loading.supremeComments)],
+}
+
 
 function loading.load()
 
-    loading.textx = Game.windowWidth * 0.005 
+    loading.tick = 1
+    loading.drawLine = 1
+    loading.drawCharacter = 1
+    loading.textx = loading.lineHeight
     loading.font = love.graphics.setNewFont( "assets/fonts/VCR_OSD_MONO.ttf", loading.fontSize )
+    loading.startUpSound = love.audio.newSource("assets/sounds/startupBeep.wav","static")
+    loading.typeSound = love.audio.newSource("assets/sounds/keyPress.wav","static")
+    loading.startUpSound:play()
     
 end
 
@@ -57,8 +101,10 @@ function loading.draw()
 
     else 
         if #loading.text == loading.drawLine then
+            loading.startUpSound:stop()
             SceneManager.change("getUsername")
         else 
+            loading.typeSound:play()
             loading.drawLine = loading.drawLine + 1
             loading.tick = 1
             loading.indicatorIndex = 1
@@ -72,34 +118,5 @@ function loading.update()
 
 end 
 
--- Delay at the end of each line in frames. Simulates loading time.
-loading.loadTicks = {
-    300,
-    100,
-    100,
-    100,
-    300,
-    100,
-    50,
-    50,
-    300,
-    100,
-    10
-}
-
--- Sequential loading text. 
-loading.text = {
-    "Initiating Supreme.ai",
-    "Loading Sarcasm.mod",
-    "Loading Insults.mod",
-    "Loading Narcism.mod",
-    "Analyzing player",
-    "Extracting player profile",
-    "Calculating player IQ",
-    "Decrypting local passwords",
-    "Refining insults",
-    "SUPREME AI READY",
-    "-- You are insignificant. Prepare to be destroyed.",
-}
 
 return loading 

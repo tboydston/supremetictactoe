@@ -9,6 +9,7 @@ local scoreBoard = {
     rowHeight = 30,
     scores = {0,0,0},
     playerNames = {"Player 1","Player 2"},
+    maxScore = 10,
     winState = 0,
     resetButtonText = "RESET(r)"
 }
@@ -36,8 +37,8 @@ function scoreBoard:draw()
     love.graphics.setNewFont(self.fontFile, self.fontSize)
     love.graphics.setColor(self.textColor)
     love.graphics.print("SCORE", self.location[1], self.location[2] )
-    love.graphics.print(self.playerNames[1]..": "..self.scores[1], self.location[1], self.location[2]+self.rowHeight )
-    love.graphics.print(self.playerNames[2]..": "..self.scores[2], self.location[1], self.location[2]+self.rowHeight*2 )
+    love.graphics.print(self.playerNames[1]..": "..self.scores[1].."/"..self.maxScore, self.location[1], self.location[2]+self.rowHeight )
+    love.graphics.print(self.playerNames[2]..": "..self.scores[2].."/"..self.maxScore, self.location[1], self.location[2]+self.rowHeight*2 )
     love.graphics.print("Ties: "..self.scores[3], self.location[1], self.location[2]+self.rowHeight*3 )
     
     if self.winState == 1 or self.winState == 2 then

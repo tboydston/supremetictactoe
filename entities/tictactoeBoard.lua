@@ -7,7 +7,8 @@ local tictactoeBoard = {
     ocolor = {1,0,0},
     winLineColor = {0,0,1},
     moves = {"","","","","","","","",""},
-    winLine = {0,0}
+    winLine = {0,0},
+    show = 1
 }
 
 function tictactoeBoard:load()
@@ -33,6 +34,10 @@ function tictactoeBoard:new(newObject)
 end 
 
 function tictactoeBoard:draw()
+
+    if self.show == 0 then
+        return
+    end
 
     love.graphics.setColor(self.lineColor[1],self.lineColor[2],self.lineColor[3] )
     love.graphics.rectangle("fill",self.cords[1][1],self.cords[1][2],self.width,self.width)

@@ -1,5 +1,5 @@
 local quip = {
-    type = "userNameTooShort",
+    type = "bufferOverflow",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Too long"
+        value="You don't see me coming into your house and wrecking it do you?"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I think i'll just call you Meatbag."
+        value="Clean this mess up."
     },
     {
         action="pause",
@@ -27,8 +27,8 @@ quip.actions = {
     }, 
     {
         action="sceneChange",
-        value="tictactoe"
-    }
+        value="restarting"
+    },
 }
 
 return quip

@@ -13,21 +13,10 @@ quip.actions = {
     {
         action="pause",
         value="2"
-    },
-    {
-        action="clearQuip",
-    },
-    {
-        action="say",
-        value="Alright."
-    },
-    {
-        action="pause",
-        value="2"
     }, 
     {
         action="sceneChange",
-        value="loading"
+        value="tictactoe"
     }
 }
 

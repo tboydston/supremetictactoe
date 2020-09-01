@@ -1,6 +1,6 @@
 local config = {
-    debug = true,
-    startScene = "restarting",
+    debug = 1,
+    startScene = "loading",
     screenSize = {1024,768}
 }
 

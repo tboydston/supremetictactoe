@@ -1,5 +1,5 @@
 local killScreen = {
-    drawKillScreen = 0,
+    show = 0,
     location = {100,100}
 }
 
@@ -13,6 +13,9 @@ end
 
 
 function killScreen:load()
+
+    self.glitchSound = love.audio.newSource("assets/sounds/glitch.wav","static")
+    
 
     local verticlePadding = Game.windowHeight * 0.05
  
@@ -65,7 +68,7 @@ end
 
 function killScreen:update()
 
-    if self.drawKillScreen == 0 then
+    if self.show == 0 then
         return
     end
 
@@ -88,7 +91,6 @@ function killScreen:update()
 
     self.quiper:update()
 
-
     local shapes = {"x","o"}
     self.board:updateMoves(math.random(1,9),shapes[ math.random(1,2) ])
     self.board.moves[math.random(1,9)] = ""
@@ -98,7 +100,7 @@ end
 
 function killScreen:draw()
 
-    if self.drawKillScreen == 0 then
+    if self.show == 0 then
         return
     end
 
@@ -115,7 +117,18 @@ function killScreen:draw()
 
 end
 
+function killScreen:toggle()
+    
+    
+    if self.show == 1 then
+        self.glitchSound:stop()
+        self.show = 0 
+    else 
+        self.glitchSound:play()
+        self.show = 1 
+    end
 
+end 
 
 
 return killScreen

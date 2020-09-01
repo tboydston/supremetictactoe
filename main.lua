@@ -20,20 +20,20 @@ TictactoeBoard = require "entities/tictactoeBoard"
 ScoreBoard = require "entities/scoreBoard"
 DebugMenu = require "entities/debugMenu"
 KillScreen = require "entities/killScreen"
+WinnerMessage = require "entities/winnerMessage"
+DebugNotation = require "entities/debugNotation"
 
 math.randomseed( os.time() )
+love.window.setTitle( "Supreme TicTacToe" )
 
 function love.load()
  
-    
     love.window.setMode( Config.screenSize[1], Config.screenSize[2] )
     love.keyboard.setKeyRepeat(true)
 
     Game.load(Config.debug)
     QuipManager.load()
     SceneManager.load(Config.startScene)
-
-
    
 end
 

@@ -1,7 +1,5 @@
 local tictactoe = {
     backgroundColor = {1,1,1},
-    playerName = {"p1","p2"},
-    playerScore = {0,0},
     playerType = {"h","c"},
     playStrategy = {"h","minMax"},
     winState = 0,
@@ -9,18 +7,26 @@ local tictactoe = {
     playerShapes = {"x","o"},
     playerTurnQuipChance = 30,
     supremeTurnQuipChance = 30,
-    drawDebug = 1
+    drawDebug = 1,
+    debugTieStackOverflowLimit = 255,
+    maxScore = 10,
+    gameOver = 0
 }
 
 function tictactoe.load()
 
-    if Game.player1Name ~= nil then
-        tictactoe.playerName[1] = Game.player1Name
-    end 
+    tictactoe.playerSounds = {
+        love.audio.newSource("assets/sounds/player1move.wav","static"),
+        love.audio.newSource("assets/sounds/player2move.wav","static")
+    }
 
-    if Game.player2Name ~= nil then
-        tictactoe.playerName[2] = Game.player2Name
-    end
+    tictactoe.roundEndSounds = {
+        love.audio.newSource("assets/sounds/player1win.wav","static"),
+        love.audio.newSource("assets/sounds/player2win.wav","static"),
+        love.audio.newSource("assets/sounds/tie.wav","static")
+    }
+
+    tictactoe.errorSound = love.audio.newSource("assets/sounds/player1move.wav","static")
 
     love.graphics.setBackgroundColor( tictactoe.backgroundColor[1], tictactoe.backgroundColor[2], tictactoe.backgroundColor[3] )
 
@@ -30,6 +36,9 @@ function tictactoe.load()
 
     local quipMaxWidth = Game.windowWidth * 0.3
     local quipLocation = { Game.windowWidth * 0.6 , (eyeCenter[2] - eyeRadius) }
+     
+    tictactoe.quipKillScreenLocation = { Game.windowWidth * 0.01, Game.windowHeight * 0.4 }
+    tictactoe.quipKillScreenWidth = Game.windowWidth * 0.13
 
     tictactoe.quiper = Quiper:new({
         location = quipLocation,
@@ -43,11 +52,14 @@ function tictactoe.load()
 
     tictactoe.board = TictactoeBoard:new({
         location = { ( Game.windowWidth - boardWidth ) / 2,Game.windowHeight * 0.3 },
-        width = boardWidth
+        width = boardWidth,
+        show = 1
     })
 
     tictactoe.scoreBoard = ScoreBoard:new({
         location = { Game.windowWidth * 0.1 , (eyeCenter[2] - eyeRadius) },
+        playerNames = Game.playerNames,
+        maxScore = tictactoe.maxScore 
     })
 
     tictactoe.debugMenu = DebugMenu:new({
@@ -63,17 +75,30 @@ function tictactoe.load()
             {'P2 Strategy:'},
             {'NA','random','miniMax'}
         },
-        drawDebug = tictactoe.drawDebug
+        drawDebug = Game.debugMode
     })
 
     tictactoe.killScreen = KillScreen:new({
-        drawKillScreen = 1,
+        show = 0,
         location = { Game.windowWidth / 2, 0 }
     })
 
+    tictactoe.winnerMessage = WinnerMessage:new({
+        location = { 0, Game.windowHeight * 0.3 },
+        dimensions = {Game.windowWidth,Game.windowHeight * 0.7},
+        show = 0
+    })
+
+    tictactoe.gameOverReset()
+
+    if ( Game.playerNames[1] == Game.playerNames[2] ) then
+        tictactoe.playerType = {"c","c"}
+        tictactoe.playStrategy = {"minMax","minMax"}
+    end
+
     tictactoe.setDebugMenu() 
 
-    if tictactoe.drawDebug == 1 then
+    if Game.debugMode == 1 then
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlayDebug") )
     else 
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlay") )
@@ -82,10 +107,19 @@ function tictactoe.load()
 end
 
 function tictactoe.update()
-
     
-
-    if tictactoe.playerType[tictactoe.playerMove] == "c" and tictactoe.winState == 0 and tictactoe.quiper.quipping == 0 then
+    -- If the round is human v computer we wait for quips to finish. 
+    -- If the round is computer v computer we do not. 
+    if ( tictactoe.playerType[tictactoe.playerMove] == "c" and 
+        tictactoe.winState == 0 and 
+        tictactoe.quiper.quipping == 0 and 
+        tictactoe.killScreen.show == 0 ) or
+        ( tictactoe.playerType[1] == "c" and
+          tictactoe.playerType[2] == "c" and
+          tictactoe.winState == 0 and
+          tictactoe.killScreen.show == 0
+        )
+    then
         
         tictactoe.processAiMove()
         tictactoe.processGameState()
@@ -105,11 +139,18 @@ function tictactoe.draw()
     tictactoe.scoreBoard:draw()
     tictactoe.debugMenu:draw()
     tictactoe.killScreen:draw()
+    tictactoe.winnerMessage:draw()
 
 
 end
 
 function tictactoe.mousepressed(x, y, button, istouch)
+
+    tictactoe.processDebugClick(x,y)
+
+    if tictactoe.killScreen.show == 1 or tictactoe.gameOver == 1 then
+        return
+    end
 
     if tictactoe.winState > 0 and tictactoe.scoreBoard:resetClick(x, y) == true then
         tictactoe.reset()
@@ -124,6 +165,7 @@ function tictactoe.mousepressed(x, y, button, istouch)
         if tictactoe.board:updateMoves(clickedSquare,tictactoe.playerShapes[tictactoe.playerMove]) == false then
             return
         end
+        tictactoe.playerSounds[1]:play()
         tictactoe.board:draw()
         if math.random(1,100) <= tictactoe.playerTurnQuipChance then
             tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerTurn") )
@@ -132,16 +174,8 @@ function tictactoe.mousepressed(x, y, button, istouch)
 
     end
 
-    
-    tictactoe.processDebugClick(x,y)
-    
-
 
 end
-
--- function do_tables_match( a, b )
---     return table.concat(a) == table.concat(b)
--- end
 
 function tictactoe.processDebugClick(x,y)
 
@@ -152,13 +186,13 @@ function tictactoe.processDebugClick(x,y)
     end
     
     if Utils:tablesMatch( clickInDebugMenu, {3,1} ) then 
-        print( "here")
+
         tictactoe.playerType[1] = "h"
 
     end 
 
     if Utils:tablesMatch( clickInDebugMenu, {3,2} ) then 
-        print("here2")
+
         tictactoe.playerType[1] = "c"
         if tictactoe.playStrategy[1] == "h" then
             tictactoe.playStrategy[1] = "random"
@@ -225,13 +259,22 @@ function tictactoe.processGameState()
     if boardWinState == "tie" then
         tictactoe.winState = 3
         tictactoe.updateWinState(3)
-        tictactoe.scoreBoard:updateScore(3)
+        
+        if tictactoe.scoreBoard.scores[3] + 1 > tictactoe.debugTieStackOverflowLimit then
+            tictactoe.killScreen.show = 1
+            tictactoe.quiper.location = tictactoe.quipKillScreenLocation
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("bufferOverflow") )
+        else 
+            tictactoe.scoreBoard:updateScore(3)
+        end 
+
         return 
     end
 
     tictactoe.board.winLine = boardWinState
-    tictactoe.updateWinState(tictactoe.playerMove)
     tictactoe.scoreBoard:updateScore(tictactoe.playerMove)
+    tictactoe.updateWinState(tictactoe.playerMove)
+
 
 end
 
@@ -307,20 +350,32 @@ function tictactoe.processAiMove()
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeTurn") )
     end
 
+    tictactoe.playerSounds[2]:play()
 
 end
 
 function tictactoe.textinput(text)
 
-    if text == "r" then
-        tictactoe.reset()
+    if tictactoe.killScreen.show == 1 then
+        return
     end
 
+    if text == "r" then
+        if tictactoe.gameOver == 1 then 
+            -- If the player is the winner then the game will reset itself after going through the credits 
+            -- so we don't allow the player to reset manually. 
+            if tictactoe.winState == 1 then
+                return
+            end
+            tictactoe.gameOverReset()
+        else 
+            tictactoe.reset()
+        end 
+    end
 end 
 
 function tictactoe.reset()
 
-    tictactoe.playerScore = {0,0}
     tictactoe.winState = 0
     tictactoe.playerMove = 1
     tictactoe.playerMove = 1
@@ -335,7 +390,21 @@ function tictactoe.updateWinState(newWinState)
     tictactoe.winState = newWinState
     tictactoe.scoreBoard.winState = newWinState
 
+    if tictactoe.scoreBoard.scores[1] >= tictactoe.maxScore or tictactoe.scoreBoard.scores[2] >= tictactoe.maxScore then
+
+        if newWinState == 2 then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeGameWin") )
+        end 
+    
+        if newWinState == 1 then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerGameWin") )
+        end
+        tictactoe.gameIsOver()
+        return
+    end
+
     if newWinState == 3 then
+        
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("tieMatch") )
     end 
 
@@ -345,7 +414,47 @@ function tictactoe.updateWinState(newWinState)
 
     if tictactoe.playerType[newWinState] == "h" then
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerWin") )
-    end 
+    end
+
+    tictactoe.roundEndSounds[newWinState]:play()
+
+    if ( Game.playerNames[1] == Game.playerNames[2] ) then
+        tictactoe.reset()
+    end
+
+    
+    
+
+end
+
+function tictactoe.gameIsOver()
+
+    tictactoe.gameOver = 1
+    tictactoe.board.show = 0
+
+    local winSound = "win"
+    local showPlayAgain = 0
+    if tictactoe.winState == 2 then
+        winSound = "lose"
+        showPlayAgain = 1
+    end
+    
+    tictactoe.winnerMessage:toggle(winSound, Game.playerNames[tictactoe.playerMove],showPlayAgain)
+
+end
+
+function tictactoe.gameOverReset()
+
+    tictactoe.playerType = {"h","c"}
+    tictactoe.playStrategy = {"h","minMax"}
+    tictactoe.scoreBoard.scores = {0,0,0}
+    tictactoe.reset()
+    tictactoe.gameOver = 0
+    tictactoe.board.show = 1
+
+    if tictactoe.winnerMessage.show == 1 then
+        tictactoe.winnerMessage:toggle()
+    end
 
 
 end

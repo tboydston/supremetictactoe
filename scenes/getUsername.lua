@@ -1,6 +1,14 @@
 local getUsername = {
     backgroundColor = {1,1,1},
-    playerName = {"","Supreme"}
+    playerName = {"",Game.playerNames[2]},
+    submitting = 0
+}
+
+getUsername.possiblePlayerNames = {
+    "Meatbag",
+    "Primate",
+    "Breather",
+    "Fleshy",
 }
 
 function getUsername.load()
@@ -33,9 +41,16 @@ function getUsername.load()
         buttonFontSize = dialogueBoxDim[2] * 0.10
     })
 
+    getUsername.debugNotation = DebugNotation:new({
+        location = {Game.windowWidth-100,Game.windowHeight-50},
+        show = Game.debugMode    
+    })
+
     getUsername.quiper:loadQuip(QuipManager.getRandomQuip("getUsername") )
 
     love.graphics.setBackgroundColor( getUsername.backgroundColor[1], getUsername.backgroundColor[2], getUsername.backgroundColor[3] )
+
+    getUsername.submitting = 0
 
 end
 
@@ -44,9 +59,12 @@ function getUsername.update()
 end
 
 function getUsername.draw()
+
     getUsername.form:draw()
     getUsername.supreme:draw()
     getUsername.quiper:draw()
+    getUsername.debugNotation:draw()
+
 end
 
 function getUsername.mousepressed(x, y, button, istouch)
@@ -78,20 +96,30 @@ end
 
 function getUsername.submit()
 
-    Game.playerName = getUsername.playerName
+    if getUsername.submitting == 1 then
+        return 
+    end
 
+    getUsername.submitting = 1
+    
     if #getUsername.form.inputText == 0 then
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooShort") )
+        getUsername.submitting = 0
         return 
     end
 
-    if #getUsername.form.inputText > 18 and #getUsername.form.inputText <= 255 then
-        Game.playerName[1] = "Meatbag"
+    if #getUsername.form.inputText > 16 and #getUsername.form.inputText <= 255 then
+        Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooLong") )
-        return 
+        return
     end
 
-    Game.playerName[1] = getUsername.form.inputText
+    if #getUsername.form.inputText >= 255 then
+        SceneManager.change('restarting')
+    end
+
+    Game.playerNames[1] = getUsername.form.inputText
+
     getUsername.quiper:loadQuip(QuipManager.getRandomQuip("nameSubmitted") )
 
 end
