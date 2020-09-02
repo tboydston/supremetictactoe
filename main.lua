@@ -9,7 +9,7 @@ Utils = require "lib/utilities"
 SceneManager = require "lib/sceneManager"
 QuipManager = require "lib/quipManager"
 Game = require "lib/game"
-MinMaxMove = require "lib/minMaxMove"
+MinMaxMove = require "lib/miniMaxMove"
 RandomMove = require "lib/randomMove"
 
 -- Entities

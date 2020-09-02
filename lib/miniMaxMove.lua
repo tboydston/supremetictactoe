@@ -1,29 +1,40 @@
-local minMaxMove = {
+--[[
+    MiniMax with alpha beta pruning AI manager. 
+]]
+
+
+local miniMaxMove = {
     recursions = 0
 }
 
+--[[
+    Takes a boards state and choses the best move based on the current state. 
+    @param boardState  Board state table {"","x","o","","","x","o","",""} 
+    @return number Position in board state table to make next move. 
+]]
+function miniMaxMove.chooseBestMove(boardState)
 
-function minMaxMove.chooseBestMove(boardState)
+    -- Get all available moves that need to be evaluated.
+    local availableMoves = miniMaxMove.getAvailableMoves(boardState)
 
-    local availableMoves = minMaxMove.getAvailableMoves(boardState)
-
-    -- local minMaxResults = ""
-    local playerSymbol = minMaxMove.getNextTurnFromBoardState(boardState)
+    -- Based on the current board state determine whose turn it is.
+    local playerSymbol = miniMaxMove.getNextTurnFromBoardState(boardState)
     
     local posResults = {}
     local nulResults = {}
     local negResults = {}
 
+    -- loop through each of the available moves to evaluate their score.
     for i=1, #availableMoves, 1 do
-              
+        
+        -- Create a local working copy of the board. 
         local localBoardState = Utils:deepcopy(boardState)
+        -- Make a move on the local board to evaluate.
         localBoardState[availableMoves[i]] = playerSymbol
         
-        local result = minMaxMove.minMaxMovesAlphaBetaPruning(localBoardState,playerSymbol,-1000,1000)
+        -- Sends current state to recursive function to evaluate move we are testing for current player.
+        local result = miniMaxMove.miniMaxMovesAlphaBetaPruning(localBoardState,playerSymbol,-1000,1000)
  
-        -- minMaxResults = minMaxResults .. " Move: "..availableMoves[i].." Score: "..result
-        -- print( "Move: "..availableMoves[i].." Score: "..result )
-
         if result > 0 then
             table.insert(posResults,availableMoves[i])
         end 
@@ -38,8 +49,8 @@ function minMaxMove.chooseBestMove(boardState)
 
     end
 
+    -- Equal results are randomized to prevent the same pattern from appearing when the same squares are selected. 
     if #posResults > 0 then
-           
         return posResults[ math.random(1,#posResults ) ]
     end
 
@@ -53,7 +64,13 @@ function minMaxMove.chooseBestMove(boardState)
     
 end 
 
-function minMaxMove.getNextTurnFromBoardState(boardState)
+
+--[[
+    Based on the current board state returns the next players symbol.
+    @param boardState table Board state table {"","x","o","","","x","o","",""}    
+    @return 'x'
+]]
+function miniMaxMove.getNextTurnFromBoardState(boardState)
 
     local xcount = 0
     local ocount = 0
@@ -82,76 +99,81 @@ function minMaxMove.getNextTurnFromBoardState(boardState)
 
 end
 
+--[[
+    Recursive function to determine rank moves based on a current board state. 
+    @param boardState  table  Board state table {"","x","o","","","x","o","",""} 
+    @param playerSymbol  string  Symbol of current player being evaluated ("x" or "o")
+    @param alpha number
+    @param beta number
+]]
+function miniMaxMove.miniMaxMovesAlphaBetaPruning(boardState, playerSymbol, alpha, beta)
 
-function minMaxMove.minMaxMovesAlphaBetaPruning(boardState, playerSymbol, alpha, beta)
+    -- We count the recursion to help figure out if the algo is working too hard. 
+    miniMaxMove.recursions = miniMaxMove.recursions + 1
 
-    -- Debug.printGridToConsole(boardState)
-    minMaxMove.recursions = minMaxMove.recursions + 1
-    -- print( "Recursions: "..minMaxMove.recursions)
-
-    local winner = minMaxMove.checkEndState(boardState)
-
-    -- print( "Winner "..winner )
+    -- Check the current board state to see if there is a winner.
+    local winner = miniMaxMove.checkEndState(boardState)
 
     if winner ~= 0 then 
 
         if winner == 3 then
+            -- DEBUG
             -- print( "Found Tie")
             return 0
         end
 
         if winner == playerSymbol then
+            -- DEBUG
             -- print( "Found Winner "..playerSymbol)
             return 1
-        else 
+        else
+            -- DEBUG 
             -- print( "Found Winner "..winner)
             return -1
         end
 
     end
 
-    local nextTurn = minMaxMove.getNextTurnFromBoardState(boardState)
-    -- print("next Turn "..nextTurn )
-    local availableMoves = minMaxMove.getAvailableMoves(boardState)
+    -- If no winner was found we determine who the next player is based on the board state.
+    local nextTurn = miniMaxMove.getNextTurnFromBoardState(boardState)
+    -- Extract available moves from board state.
+    local availableMoves = miniMaxMove.getAvailableMoves(boardState)
 
     local result = {}
     local value = 0
 
+    -- loop through each of the available moves to evaluate their score.
     for i=1, #availableMoves, 1 do
-
-        -- print("Start Grid")
-        -- Debug.printGridToConsole(boardState)
-        -- print()
-        
+    
+        -- Create a local working copy of the board. 
         local localBoardState = Utils:deepcopy(boardState)
  
+        -- Make a move on the local board to evaluate.
         localBoardState[availableMoves[i]] = nextTurn
 
-        -- print("Result Grid")
-        -- Debug.printGridToConsole(localBoardState)
-        -- print()
+        -- Sends current state to recursive function to evaluate move we are testing for current player.
+        value = miniMaxMove.miniMaxMovesAlphaBetaPruning(localBoardState, playerSymbol, alpha, beta)
 
-        value = minMaxMove.minMaxMovesAlphaBetaPruning(localBoardState, playerSymbol, alpha, beta)
 
-        if nextTurn == playerSymbol then -- We are maximizing
+        -- Result is current players result so we are maximizing.
+        if nextTurn == playerSymbol then 
 
             local bestMaxValue = Utils:tableLowHigh({ -1000,value })[2]
             alpha = Utils:tableLowHigh({ alpha, bestMaxValue })[2]
-            -- print(value.." "..bestMaxValue.." "..beta.." "..alpha)
-            
+           
+            -- If or alpha is greater then our beta we return otherwise the branch is pruned. 
             if alpha >= beta then
-                -- print("Max prune Alpha: "..alpha)
                 return alpha
             end
 
-        else
+        -- Result is opponents result so we are minimizing. 
+        else 
 
             local bestMinvalue = Utils:tableLowHigh({1000,value})[1]
             beta = Utils:tableLowHigh({ beta, bestMinvalue })[1]
-            -- print(value.." "..bestMinvalue.." "..beta.." "..alpha)
 
+            -- If the beta is less then our alpha we return otherwise the branch is pruned. 
             if beta <= alpha then
-                -- print("Min prune Beta: "..beta)
                 return beta
             end
 
@@ -162,23 +184,28 @@ function minMaxMove.minMaxMovesAlphaBetaPruning(boardState, playerSymbol, alpha,
     
     end
 
+    -- Results are sorted and top result returned.
     table.sort(result)
 
     if nextTurn == playerSymbol then 
-        -- print("Next Turn is "..nextTurn.." returning "..result[#result])
         return result[#result]
     else 
-        -- print("Next Turn is "..nextTurn.." returning "..result[1])
         return result[1]
     end
 
 end
 
-function minMaxMove.checkEndState(boardState)
+
+--[[
+    Check to see if the board is in an end state. Either there is a winner or a tie.
+    @param boardState table Board state table {"","x","o","","","x","o","",""} 
+    @return winner number  1,2, or 3 for player 1/2 or 3 for tie.
+]]
+function miniMaxMove.checkEndState(boardState)
 
     local winner = nil
 
-    -- Check if board is in win state. 
+ 
     if boardState[1] == boardState[2] and boardState[2] == boardState[3] and boardState[1] ~= ""  then 
         winner = boardState[1]
     end
@@ -211,7 +238,7 @@ function minMaxMove.checkEndState(boardState)
         winner = boardState[7]
     end
 
-    local availableMoves = minMaxMove.getAvailableMoves(boardState)
+    local availableMoves = miniMaxMove.getAvailableMoves(boardState)
 
     if #availableMoves == 0 and winner == nil then
         return 3
@@ -225,7 +252,12 @@ function minMaxMove.checkEndState(boardState)
 
 end
 
-function minMaxMove.getAvailableMoves(boardState)
+--[[
+    Gets available moves from board state.
+    @param boardState table Board state table {"","x","o","","","x","o","",""} 
+    @return availableMoves table  
+]]
+function miniMaxMove.getAvailableMoves(boardState)
 
     local availableMoves = {}
     for i=1, #boardState, 1 do
@@ -239,4 +271,4 @@ function minMaxMove.getAvailableMoves(boardState)
 end
 
 
-return minMaxMove
+return miniMaxMove

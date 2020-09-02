@@ -1,7 +1,14 @@
+--[[
+    Loads and manages quips.
+]]
+
 local quipManager = {
     quips = {}
 }
 
+--[[
+    Autoloads quips from the quips folder and adds them to the quipManager.quips object.
+]]
 function quipManager.load() 
 
     local quipFile = love.filesystem.getDirectoryItems( "quips/" )
@@ -21,6 +28,9 @@ function quipManager.load()
 
 end
 
+--[[
+    Returns a random quip with a given object key.
+]]
 function quipManager.getRandomQuip(quipName)
     
     local quipNumber = math.random(1,#quipManager.quips[quipName])

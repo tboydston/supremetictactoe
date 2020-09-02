@@ -1,3 +1,13 @@
+--[[
+
+Main game global object 
+manages and sets variable and functions that are accessible anywhere in the game.
+
+]]
+
+
+
+
 local game = {
 
 }
