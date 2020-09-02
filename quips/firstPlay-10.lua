@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "firstPlay",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
+        value="I suggest the middle square."
     },
     {
         action="pause",
@@ -19,7 +19,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="Or one of the outside one."
+    },
+    {
+        action="pause",
+        value="2"
+    }, 
+    {
+        action="clearQuip",
+    }, 
+    {
+        action="say",
+        value="Just pick one."
     },
     {
         action="pause",

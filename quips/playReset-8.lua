@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "playReset",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
+        value="Why don't you let me save you the trouble."
     },
     {
         action="pause",
@@ -19,7 +19,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="You play X, I play O, You play X, I play O, You play X, I play O"
+    },
+    {
+        action="pause",
+        value="2"
+    }, 
+    {
+        action="clearQuip",
+    }, 
+    {
+        action="say",
+        value="Then I win again."
     },
     {
         action="pause",

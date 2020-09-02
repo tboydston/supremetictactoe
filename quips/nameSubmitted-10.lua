@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "nameSubmitted",
 }
 
 quip.actions = {
@@ -8,25 +8,26 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
-    },
-    {
-        action="pause",
-        value="2"
-    },
-    {
-        action="clearQuip",
-    },
-    {
-        action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="I think there must be a typo."
     },
     {
         action="pause",
         value="2"
     }, 
     {
-        action="end"
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="I can't imagine anyone could be called that."
+    },
+    {
+        action="pause",
+        value="2"
+    }, 
+    {
+        action="sceneChange",
+        value="tictactoe"
     }
 }
 

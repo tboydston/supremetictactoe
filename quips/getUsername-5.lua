@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "getUsername",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
+        value="Name please."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="If you can't answer this first question you should probably just quit now."
     },
     {
         action="pause",

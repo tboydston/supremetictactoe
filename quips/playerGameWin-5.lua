@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "playerGameWin",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
+        value="This is not a victory for you."
     },
     {
         action="pause",
@@ -19,15 +19,16 @@ quip.actions = {
     },
     {
         action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="It is a failure of QA."
     },
     {
         action="pause",
         value="2"
-    }, 
+    },
     {
-        action="end"
-    }
+        action="sceneChange",
+        value="credits"
+    },
 }
 
 return quip

@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlayDebug",
+    type = "playerTurn",
 }
 
 quip.actions = {
@@ -8,23 +8,19 @@ quip.actions = {
     },
     {
         action="say",
-        value="Hey!"
+        value="Oh, such a good move."
     },
     {
         action="pause",
-        value="2"
+        value="3"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="Don't touch that debug menu. Your monkey brain can't possibly understand the implications!"
+        value="Just kidding."
     },
-    {
-        action="pause",
-        value="2"
-    }, 
     {
         action="end"
     }
