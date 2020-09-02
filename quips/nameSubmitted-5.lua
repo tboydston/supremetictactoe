@@ -13,9 +13,6 @@ quip.actions = {
     {
         action="pause",
         value="2"
-    }, 
-    {
-        action="clearQuip",
     },
     {
         action="sceneChange",

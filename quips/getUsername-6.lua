@@ -33,6 +33,10 @@ quip.actions = {
         value="Did I guess correctly?"
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

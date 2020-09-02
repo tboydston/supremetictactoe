@@ -22,6 +22,10 @@ quip.actions = {
         value="No one really expected you to win."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

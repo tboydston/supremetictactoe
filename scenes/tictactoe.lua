@@ -408,11 +408,11 @@ function tictactoe.updateWinState(newWinState)
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("tieMatch") )
     end 
 
-    if tictactoe.playerType[newWinState] == "c" then
+    if newWinState == 2 then
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeWin") )
     end 
 
-    if tictactoe.playerType[newWinState] == "h" then
+    if newWinState == 1 then
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerWin") )
     end
 

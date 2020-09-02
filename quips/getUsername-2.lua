@@ -33,6 +33,10 @@ quip.actions = {
         value="And what would your name be?"
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

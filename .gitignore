@@ -1,2 +1,5 @@
 .DS_Store
+.vscodegit 
 .vscode
+makelove.toml
+builds

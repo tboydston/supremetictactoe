@@ -22,6 +22,10 @@ quip.actions = {
         value="Maybe someone with a fully functioning brain?"
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

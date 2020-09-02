@@ -44,6 +44,10 @@ quip.actions = {
         value="You must be completly insane."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

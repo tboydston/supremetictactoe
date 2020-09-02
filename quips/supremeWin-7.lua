@@ -22,6 +22,10 @@ quip.actions = {
         value="Bring it on."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

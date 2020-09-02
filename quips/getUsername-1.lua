@@ -33,6 +33,10 @@ quip.actions = {
         value="Does the meatbag have a name?"
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

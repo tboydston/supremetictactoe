@@ -42,7 +42,7 @@ function getUsername.load()
     })
 
     getUsername.debugNotation = DebugNotation:new({
-        location = {Game.windowWidth-100,Game.windowHeight-50},
+        location = {Game.windowWidth-250,Game.windowHeight-50},
         show = Game.debugMode    
     })
 

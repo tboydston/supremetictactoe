@@ -33,6 +33,10 @@ quip.actions = {
         value="It's always do difficult communicating with you primates."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

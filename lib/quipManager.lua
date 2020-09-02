@@ -22,8 +22,10 @@ function quipManager.load()
 end
 
 function quipManager.getRandomQuip(quipName)
-    print(quipName)
-    return quipManager.quips[quipName][math.random(1,#quipManager.quips[quipName])]
+    
+    local quipNumber = math.random(1,#quipManager.quips[quipName])
+    print("Loading quip: "..quipName.."-"..quipNumber)
+    return quipManager.quips[quipName][quipNumber]
 
 end
 

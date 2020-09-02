@@ -22,6 +22,10 @@ quip.actions = {
         value="Forgot we were still playing."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

@@ -22,6 +22,10 @@ quip.actions = {
         value="The only way to win is not to play at all."
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }

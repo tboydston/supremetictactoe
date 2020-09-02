@@ -33,6 +33,10 @@ quip.actions = {
         value="Do you need the number for tech support?"
     },
     {
+        action="pause",
+        value="2"
+    },
+    {
         action="end"
     }
 }
