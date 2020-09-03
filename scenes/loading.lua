@@ -16,15 +16,15 @@ local loading = {
 
 -- Delay at the end of each line in frames. Simulates loading time.
 loading.loadTicks = {
-    300,
+    200,
     100,
     100,
     100,
-    300,
+    200,
     100,
     50,
     50,
-    300,
+    200,
     100,
     10
 }

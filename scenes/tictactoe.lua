@@ -10,7 +10,8 @@ local tictactoe = {
     drawDebug = 1,
     debugTieStackOverflowLimit = 255,
     maxScore = 10,
-    gameOver = 0
+    gameOver = 0,
+
 }
 
 function tictactoe.load()
@@ -133,14 +134,13 @@ end
 
 function tictactoe.draw()
 
-    tictactoe.quiper:draw()
     tictactoe.supreme:draw()
     tictactoe.board:draw()
     tictactoe.scoreBoard:draw()
     tictactoe.debugMenu:draw()
     tictactoe.killScreen:draw()
     tictactoe.winnerMessage:draw()
-
+    tictactoe.quiper:draw()
 
 end
 
@@ -259,14 +259,8 @@ function tictactoe.processGameState()
     if boardWinState == "tie" then
         tictactoe.winState = 3
         tictactoe.updateWinState(3)
-        
-        if tictactoe.scoreBoard.scores[3] + 1 > tictactoe.debugTieStackOverflowLimit then
-            tictactoe.killScreen.show = 1
-            tictactoe.quiper.location = tictactoe.quipKillScreenLocation
-            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("bufferOverflow") )
-        else 
-            tictactoe.scoreBoard:updateScore(3)
-        end 
+        tictactoe.scoreBoard:updateScore(3)
+        tictactoe.evaluteTieOverflowEndgame()
 
         return 
     end
@@ -276,6 +270,16 @@ function tictactoe.processGameState()
     tictactoe.updateWinState(tictactoe.playerMove)
 
 
+end
+
+function tictactoe.evaluteTieOverflowEndgame()
+
+    if tictactoe.scoreBoard.scores[3] >= tictactoe.debugTieStackOverflowLimit then
+        tictactoe.killScreen.show = 1
+        tictactoe.quiper.location = tictactoe.quipKillScreenLocation
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("bufferOverflow") )
+    end 
+        
 end
 
 function tictactoe.checkWinState()
@@ -368,13 +372,18 @@ function tictactoe.textinput(text)
                 return
             end
             tictactoe.gameOverReset()
-        else 
+        else
+            if tictactoe.winState == 0 then 
+                tictactoe.scoreBoard:updateScore(3)
+                tictactoe.evaluteTieOverflowEndgame()
+            end
             tictactoe.reset()
         end 
     end
 end 
 
 function tictactoe.reset()
+
 
     tictactoe.winState = 0
     tictactoe.playerMove = 1
