@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Well I guess all good things must come to an end."
+        value="Well, I guess all good things must come to an end."
     },
     {
         action="pause",

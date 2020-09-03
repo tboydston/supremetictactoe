@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="One of your less mentally deficient philosophers onces said."
+        value="One of your less mentally deficient philosophers once said..."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="The definition of insanity is doing the same thing over and over and"
+        value="The definition of insanity is doing the same thing over and over and..."
     },
     {
         action="pause",
@@ -34,7 +34,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="2"
+        value="1"
     }, 
     {
         action="clearQuip",
@@ -45,7 +45,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="2"
+        value="1"
     },
     {
         action="end"

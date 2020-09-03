@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Sigh, is there anyone else there to play?"
+        value="-sigh- Is there anyone else there who can play?"
     },
     {
         action="pause",
@@ -24,6 +24,17 @@ quip.actions = {
     {
         action="pause",
         value="2"
+    },
+	{
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="unlike you"
+    },
+    {
+        action="pause",
+        value="1"
     },
     {
         action="end"

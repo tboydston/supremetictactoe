@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Or do."
+        value="Or do... It's not like I care."
     },
     {
         action="pause",

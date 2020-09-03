@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Or one of the outside one."
+        value="Or one of the outside ones."
     },
     {
         action="pause",

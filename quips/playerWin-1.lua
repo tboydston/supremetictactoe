@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="What? How is this possible."
+        value="What? How is this possible?"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I must need to zap my pram or something."
+        value="I must need to zap my PRAM or something."
     },
     {
         action="pause",

@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Don't you have anything better to do then lose over and over."
+        value="Don't you have anything better to do than lose over and over?"
     },
     {
         action="pause",

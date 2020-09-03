@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Perhaps you chould review the rules."
+        value="Perhaps you should review the rules."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You are supposed to get 3 'X' in a row."
+        value="You are supposed to get 3 X's in a row."
     },
     {
         action="pause",

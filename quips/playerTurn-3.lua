@@ -4,6 +4,9 @@ local quip = {
 
 quip.actions = {
     {
+        action="clearQuip",
+    },
+	{
         action="say",
         value="Ouch, not a great choice."
     },

@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You don't see me coming into your house and wrecking it do you?"
+        value="You don't see me coming into your house and wrecking it, do you?"
     },
     {
         action="pause",

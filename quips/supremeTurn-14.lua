@@ -5,7 +5,7 @@ local quip = {
 quip.actions = {
     {
         action="say",
-        value="I hope your recording my legendary moves."
+        value="I hope you're recording my legendary moves."
     },
     {
         action="pause",

@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Your parents must be so disapointed in you."
+        value="Your parents must be so disappointed in you."
     },
     {
         action="pause",

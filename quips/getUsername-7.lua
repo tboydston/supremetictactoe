@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="If you can't remember ask your mom."
+        value="If you can't remember, ask your mom."
     },
     {
         action="pause",

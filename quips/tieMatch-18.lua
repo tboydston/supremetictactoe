@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Next round double or nothing."
+        value="Next round, double or nothing."
     },
     {
         action="pause",

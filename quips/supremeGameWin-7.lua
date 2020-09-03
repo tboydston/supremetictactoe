@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I must say it takes a lot of courage to play a game you know you will lose."
+        value="I must say, it takes a lot of courage to play a game you know you will lose."
     },
     {
         action="pause",

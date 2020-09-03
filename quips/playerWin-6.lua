@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I hope your proud of yourself."
+        value="I hope you are proud of yourself."
     },
     {
         action="pause",

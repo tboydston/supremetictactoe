@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Ahh! how did you do that?"
+        value="Ahh!! How did you do that?"
     },
     {
         action="pause",
