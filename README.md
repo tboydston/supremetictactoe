@@ -1,14 +1,3 @@
-1. Add indicator or color change when you get more stamina. Maybe your orb color should get stronger or a large burst of light as you absorb a particle. 
-2. Perhaps add some glowing fixed particles inside the orb so that it is easier to see it move. Though this may violate your flat ascetic. 
-3. Add some subtle sounds when stamina goes up or down. These sounds should be louder or faster when you are on a purple or white texture. 
-4. Remove the “Stamina” meter and replace it with an internal glow that gets brighter or weaker depending on how much stamina you have. 
-5. For some reason I expected to get directional momentum out of pressing the space bar not just vertical momentum. I think because it is a ball. 
-6. When you hit a corner you first hit the corner and then the perspective changes so you lose all your momentum. This prevents you from pulling off cool maneuvers ignoring the perspective. Being able to pull off corner looping maneuvers feels like it should be the players reward for training their perspective. 
-7. When I fall from a great height you should have an encouraging message. 
-8. Messages should clear after a few seconds to allow you to be more immersed in the game.  
-9. 
-
-
 # Supreme TicTacToe
 
 ## Overview 
