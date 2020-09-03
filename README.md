@@ -16,13 +16,13 @@ As with all Love2d programs the entry point is 'main.lua'. All traditional love 
 
 # File Structure
 
-assets - Contains graphics, sounds, fonts, ect.
-entities - If it draws on the screen it is an entity. Entities are created using entity1 = Entity:new() 
-lib - Libraries contain global functions that are expected to exist only once. There internal function are called using lib.function()
-quips - Quips control Supreme's speech. There are autoload by the quipManager library and new quips can be added directly  
-scenes - Scenes are the game-loop for each scene. They are auto-loaded by the sceneManager. 
-config.lua - Basic config data mostly used for debugging. 
-main.lua - Program start point.
+assets - Contains graphics, sounds, fonts, ect.<br>
+entities - If it draws on the screen it is an entity. Entities are created using entity1 = Entity:new() <br>
+lib - Libraries contain global functions that are expected to exist only once. There internal function are called using lib.function()<br>
+quips - Quips control Supreme's speech. There are autoload by the quipManager library and new quips can be added directly  <br>
+scenes - Scenes are the game-loop for each scene. They are auto-loaded by the sceneManager. <br>
+config.lua - Basic config data mostly used for debugging.<br>
+main.lua - Program start point.<br>
 
 # Running The Game. 
 
@@ -37,5 +37,8 @@ love . --console
 We build Supreme TicTacToe using 'Make Love' available here. 
 
 https://github.com/pfirsich/makelove
+
+# Thanks
+Thanks to Komodeo for playtesting and improving content.
 
 
