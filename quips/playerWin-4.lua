@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Are you sure you too are not an AI"
+        value="Are you sure you too are not an AI?"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Have you ever take the Voight Kampff test?"
+        value="Have you ever taken the Voight-Kampff test?"
     },
     {
         action="pause",

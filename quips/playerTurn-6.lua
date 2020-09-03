@@ -4,8 +4,11 @@ local quip = {
 
 quip.actions = {
     {
+        action="clearQuip",
+    },
+	{
         action="say",
-        value="Haha, ok. I guess thats the best you can do."
+        value="Haha, ok. I guess that's the best you can do."
     },
     {
         action="pause",

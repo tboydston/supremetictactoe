@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I would guess your name is something simple. like Ug or Og."
+        value="I would guess your name is something simple. Like Ug. Or Og."
     },
     {
         action="pause",

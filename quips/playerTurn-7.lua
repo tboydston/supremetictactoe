@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Oops"
+        value="Oops-"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Oh you made that move on purpose."
+        value="Oh, you made that move on purpose."
     },
     {
         action="pause",

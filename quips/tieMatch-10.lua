@@ -8,7 +8,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="Waste"
+        value="W . A . S . T . E . . . "
+    },
+    {
+        action="pause",
+        value="3"
+    },
+    {
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="O . F . . . "
     },
     {
         action="pause",
@@ -19,19 +30,12 @@ quip.actions = {
     },
     {
         action="say",
-        value="Of"
+        value="T . I . M . E . . . "
     },
-    {
-        action="pause",
-        value="2"
-    },
-    {
-        action="clearQuip",
-    },
-    {
-        action="say",
-        value="Time"
-    },
+	{
+		action="pause",
+		value="1"
+	},
     {
         action="end"
     }

@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="To feel too bad for yourself."
+        value="Don't feel too bad for yourself."
     },
     {
         action="pause",

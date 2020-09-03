@@ -3,9 +3,10 @@ local quip = {
 }
 
 quip.actions = {
-    {
+    
+	{
         action="say",
-        value="Boom"
+        value="Boom."
     },
     {
         action="pause",

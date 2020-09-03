@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Impossible!"
+        value="Impossible!!"
     },
     {
         action="pause",
@@ -19,7 +19,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="Your just a primate. I am an immortal machine!"
+        value="You're just a primate. I am an immortal machine!!"
+    },
+    {
+        action="pause",
+        value="3"
+    },
+	{
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="I'm better looking too."
     },
     {
         action="pause",

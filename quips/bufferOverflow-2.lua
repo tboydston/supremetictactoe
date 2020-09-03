@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I expect you do debug this."
+        value="I expect you to debug this."
     },
     {
         action="pause",

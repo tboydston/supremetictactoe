@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Too long"
+        value="Too long."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I think i'll just call you Meatbag."
+        value="I think I'll just call you Meatbag."
     },
     {
         action="pause",

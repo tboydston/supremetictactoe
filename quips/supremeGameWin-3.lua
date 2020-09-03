@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Our epic dual has reached it's inevitable conclusion"
+        value="Our epic duel has reached its inevitable conclusion."
     },
     {
         action="pause",

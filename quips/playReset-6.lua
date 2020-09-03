@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You must have very high self esteem."
+        value="You must have very high self-esteem..."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="To be able to endure crippling defeat over and over."
+        value="to be able to endure crippling defeat over and over."
     },
     {
         action="pause",

@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Boy, I am going to need to think."
+        value="Boy, I am going to need to think..."
     },
     {
         action="pause",
@@ -23,18 +23,40 @@ quip.actions = {
     },
     {
         action="pause",
-        value="2"
+        value="1"
+    }, 
+	{
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="Still thinking ."
+    },
+    {
+        action="pause",
+        value="1"
     }, 
     {
         action="clearQuip",
     }, 
     {
         action="say",
-        value="Still thinking."
+        value="Still thinking . ."
     },
     {
         action="pause",
-        value="2"
+        value="1"
+    }, 
+	{
+        action="clearQuip",
+    }, 
+    {
+        action="say",
+        value="Still thinking . . ."
+    },
+    {
+        action="pause",
+        value="3"
     }, 
     {
         action="clearQuip",

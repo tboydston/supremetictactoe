@@ -3,13 +3,24 @@ local quip = {
 }
 
 quip.actions = {
-    {
+	{
         action="say",
-        value="Easypeasy"
+        value="Easy peasy."
     },
     {
         action="pause",
-        value="2"
+        value="1"
+    },
+	{
+        action="clearQuip",
+    },
+	{
+        action="say",
+        value="Lemon squeezy."
+    },
+    {
+        action="pause",
+        value="1"
     },
     {
         action="end"

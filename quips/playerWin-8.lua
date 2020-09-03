@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Letting you win this round"
+        value="Letting you win this round..."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Is part of my strategy."
+        value="is part of my strategy."
     },
     {
         action="pause",

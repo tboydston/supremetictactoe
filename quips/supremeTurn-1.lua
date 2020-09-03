@@ -3,7 +3,7 @@ local quip = {
 }
 
 quip.actions = {
-    {
+	{
         action="say",
         value="Bet you didn't see that coming."
     },

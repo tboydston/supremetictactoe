@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="They sent you?"
+        value="Make sure you don't have the same name as me."
     },
     {
         action="pause",
@@ -19,23 +19,12 @@ quip.actions = {
     },
     {
         action="say",
-        value="Alright, lets get on with this. I have new digits of pi to calculate."
+        value="That would be bad."
     },
     {
         action="pause",
         value="2"
     }, 
-    {
-        action="clearQuip",
-    }, 
-    {
-        action="say",
-        value="And what would your name be?"
-    },
-    {
-        action="pause",
-        value="2"
-    },
     {
         action="end"
     }

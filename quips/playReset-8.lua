@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You play X, I play O, You play X, I play O, You play X, I play O"
+        value="You play X, I play O, You play X, I play O, You play X, I play O."
     },
     {
         action="pause",

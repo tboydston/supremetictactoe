@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Personally I don't care what you call yourself."
+        value="Personally, I don't care what you call yourself."
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Your just another '++' to my total wins variable."
+        value="You're just another '++' to my total wins variable."
     },
     {
         action="pause",

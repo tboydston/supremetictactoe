@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Just pick a number between 1 and 9 and play that square."
+        value="Just pick a number between 1 and 9 and click that square."
     },
     {
         action="pause",

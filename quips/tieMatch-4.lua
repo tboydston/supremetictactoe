@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="A tie?"
+        value="Another tie?"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="How anti-climatic"
+        value="How anti-climatic."
     },
     {
         action="end"

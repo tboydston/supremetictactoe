@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="What!"
+        value=" . . . W . . . H . . . A . . . T . . . ! . . . ! . . . "
     },
     {
         action="pause",

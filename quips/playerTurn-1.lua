@@ -3,6 +3,9 @@ local quip = {
 }
 
 quip.actions = {
+	{
+        action="clearQuip",
+    },
     {
         action="say",
         value="You sure?"

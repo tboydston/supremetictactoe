@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Lets play hide and go seek instead."
+        value="Let's play hide-and-go-seek instead."
     },
     {
         action="pause",
@@ -19,12 +19,20 @@ quip.actions = {
     },
     {
         action="say",
-        value="You hide first I will find you."
+        value="You hide first. I will find you."
     },
     {
         action="pause",
         value="2"
     },
+	{
+		action="say",
+		value="I promise."
+	},
+	{
+		action="pause",
+		value="1"
+	}
     {
         action="end"
     }

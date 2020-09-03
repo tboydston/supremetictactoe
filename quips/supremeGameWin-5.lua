@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Well that was a waste of my time."
+        value="Well, that was a waste of my time."
     },
     {
         action="pause",
