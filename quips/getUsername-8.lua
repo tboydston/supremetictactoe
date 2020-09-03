@@ -30,7 +30,7 @@ quip.actions = {
     }, 
     {
         action="say",
-        value="It's always do difficult communicating with you primates."
+        value="It's always so difficult communicating with you primates."
     },
     {
         action="pause",
