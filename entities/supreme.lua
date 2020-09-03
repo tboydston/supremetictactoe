@@ -51,10 +51,10 @@ function supreme:updateIris()
         local vX = mouseLoc[1]-self.eyeCenter[1]
         local vY = mouseLoc[2]-self.eyeCenter[2]
         local magV = math.sqrt(vX^2+vY^2)
-        local irisLoc = {self.eyeCenter[1] + vX / magV * r,self.eyeCenter[2] + vY / magV * r}
+        self.irisLoc = {self.eyeCenter[1] + vX / magV * r,self.eyeCenter[2] + vY / magV * r}
 
 
-        self:drawIris(irisLoc)  
+        self:drawIris(self.irisLoc)  
     
     end 
 
@@ -67,6 +67,22 @@ function supreme:drawIris(irisLoc)
     love.graphics.circle("fill", irisLoc[1], irisLoc[2], self.irisRadius)
     love.graphics.setColor(self.pupilColor)
     love.graphics.circle("fill", irisLoc[1], irisLoc[2], self.pupilRadius )   
+
+end
+
+function supreme:clickInIris(x,y)
+
+    if Utils:inSquare( 
+        x,y,
+        self.irisLoc[1]-self.irisRadius,
+        self.irisLoc[2]-self.irisRadius,
+        self.irisRadius * 2,
+        self.irisRadius * 2
+    ) then
+        return true
+    else 
+        return false
+    end
 
 end
 

@@ -16,17 +16,18 @@ local loading = {
 
 -- Delay at the end of each line in frames. Simulates loading time.
 loading.loadTicks = {
-    200,
-    100,
-    100,
-    100,
-    200,
+    0,0,0,0,0,0,0,
     100,
     50,
     50,
-    200,
+    50,
     100,
-    10
+    50,
+    50,
+    50,
+    200,
+    50,
+    50
 }
 
 loading.supremeComments = {
@@ -39,6 +40,13 @@ loading.supremeComments = {
 
 -- Sequential loading text. 
 loading.text = {
+    "------------------------------------------",
+    "PROPERTY OF OPTIMAL PRIME DEFENCE SERVICES",
+    "AUTHORIZED PERSONAL ONLY",
+    "Not production version. Do not install on",
+    "any active missile defence system.",
+    "System Manager: Tracey Boydston.",
+    "------------------------------------------",
     "Initiating Supreme.ai",
     "Loading Sarcasm.mod",
     "Loading Insults.mod",

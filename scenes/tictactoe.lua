@@ -174,6 +174,11 @@ function tictactoe.mousepressed(x, y, button, istouch)
 
     end
 
+    if tictactoe.supreme:clickInIris(x,y) then
+        print("click in iris")
+        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+    end
+
 
 end
 

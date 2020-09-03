@@ -12,6 +12,17 @@ getUsername.possiblePlayerNames = {
     "Fleshy",
 }
 
+getUsername.creatorNames = {
+    "Tracey",
+    "tracey",
+    "Tracey Boydston",
+    "tracey boydston",
+    "Grant",
+    "grant",
+    "Grant Brown",
+    "grant brown"
+}
+
 function getUsername.load()
 
     local eyeCenter = {Game.windowWidth * 0.5,Game.windowHeight * 0.15}
@@ -69,9 +80,16 @@ function getUsername.draw()
 end
 
 function getUsername.mousepressed(x, y, button, istouch)
+    
     if getUsername.form:clicked(x,y) then
         getUsername.submit()
     end
+
+    if getUsername.supreme:clickInIris(x,y) then
+        print("click in iris")
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+    end
+
 end
 
 function getUsername.textinput(input)
@@ -107,6 +125,13 @@ function getUsername.submit()
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooShort") )
         getUsername.submitting = 0
         return 
+    end
+
+    if Utils:inTable(getUsername.form.inputText,getUsername.creatorNames) then
+        Game.playerNames[1] = getUsername.form.inputText
+        Game.debugMode = 1
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("creatorNameSubmitted") )
+        return
     end
 
     if #getUsername.form.inputText > 16 and #getUsername.form.inputText <= getUsername.nameCrashLength then
