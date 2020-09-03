@@ -175,7 +175,6 @@ function tictactoe.mousepressed(x, y, button, istouch)
     end
 
     if tictactoe.supreme:clickInIris(x,y) then
-        print("click in iris")
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
     end
 
@@ -378,11 +377,11 @@ function tictactoe.textinput(text)
             end
             tictactoe.gameOverReset()
         else
+            tictactoe.reset()
             if tictactoe.winState == 0 then 
                 tictactoe.scoreBoard:updateScore(3)
                 tictactoe.evaluteTieOverflowEndgame()
             end
-            tictactoe.reset()
         end 
     end
 end 
