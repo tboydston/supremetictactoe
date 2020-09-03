@@ -1,5 +1,5 @@
 local quip = {
-    type = "tieMatch",
+    type = "clickInIris",
 }
 
 quip.actions = {
@@ -8,12 +8,12 @@ quip.actions = {
     },
     {
         action="say",
-        value="Booooring!!"
+        value="Hey, stop it!!"
     },
     {
         action="pause",
         value="2"
-    },
+    }, 
     {
         action="end"
     }

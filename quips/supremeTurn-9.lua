@@ -5,7 +5,7 @@ local quip = {
 quip.actions = {
     {
         action="say",
-        value="In your face!"
+        value="In your face!!"
     },
     {
         action="pause",

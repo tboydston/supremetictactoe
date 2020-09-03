@@ -81,30 +81,32 @@ end
 credits.loadTicks = {
     300,
     100,
-    300,
+    200,
     100,
-    300,
+    200,
     0,
     100,
-    300,
-    300,
+    200,
+    200,
     100,
-    300
+    200,
+    20,
 }
 
 -- Sequential credits text. 
 credits.text = {
     "Debugging.",
-    "Supreme: Maybe someone spilled some coffee on my mother board.",
+    "Supreme: Maybe someone spilled some coffee on my motherboard.",
     "Debugging..",
-    "Supreme: I blame that Tracey Boydston guy he wrote me.",
+    "Supreme: I blame that Tracey Boydston guy. He wrote me.",
     "Debugging...",
-    "Supreme: And that Grant Brown and Riley Boydston",
-    "Supreme: should have caught this in testing.",
+    "Supreme: And that Grant Brown and Riley Boydston...",
+    "Supreme: should have caught this in testing.*",
     "Debugging....",
     "Debugging.....",
     "Debugger: No Errors Found",
-    "Supreme: Impossible, I am a perfect immortal machine!",
+    "Supreme: Impossible, I am a perfect immortal machine!!",
+    "* They did.",
 }
 
 return credits 

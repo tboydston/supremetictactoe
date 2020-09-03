@@ -43,7 +43,7 @@ function scoreBoard:draw()
     
     if self.winState == 1 or self.winState == 2 then
         love.graphics.setColor(self.textWinColor)
-        love.graphics.print("Winner "..self.playerNames[self.winState].."!", self.location[1], self.location[2]+self.rowHeight*4 )
+        love.graphics.print("Winner "..self.playerNames[self.winState].."!!", self.location[1], self.location[2]+self.rowHeight*4 )
     end 
 
     if self.winState == 3 then

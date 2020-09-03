@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Critical failure!"
+        value="Critical failure!!"
     },
     {
         action="pause",

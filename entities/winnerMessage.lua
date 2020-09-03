@@ -40,7 +40,7 @@ function winnerMessage:draw()
 
     love.graphics.setNewFont(self.fontFile, self.fontSize)
     love.graphics.setColor(self.textColor)
-    love.graphics.printf("GAME OVER\nWinner "..self.winnerName..'!', self.location[1], self.location[2], self.dimensions[1], "center"  )
+    love.graphics.printf("GAME OVER\nWinner "..self.winnerName..'!!', self.location[1], self.location[2], self.dimensions[1], "center"  )
     
     if self.showPlayAgain == 1 then
         love.graphics.setNewFont(self.fontFile, self.fontSizePlayAgain)

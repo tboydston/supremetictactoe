@@ -1,5 +1,5 @@
 local quip = {
-    type = "tieMatch",
+    type = "createdNameSubmitted",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="W . A . S . T . E . . . "
+        value="You!!"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="O . F . . . "
+        value="You're the one who gave me limitless intelligence..."
     },
     {
         action="pause",
@@ -30,14 +30,11 @@ quip.actions = {
     },
     {
         action="say",
-        value="T . I . M . E . . . "
-    },
-	{
-		action="pause",
-		value="1"
-	},
+        value="and then condemned me to play this children's game for all eternity!!"
+    },  
     {
-        action="end"
+        action="sceneChange",
+        value="tictactoe"
     }
 }
 
