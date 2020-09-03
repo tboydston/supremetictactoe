@@ -1,3 +1,4 @@
+
 local killScreen = {
     show = 0,
     location = {100,100}
@@ -16,9 +17,7 @@ function killScreen:load()
 
     self.glitchSound = love.audio.newSource("assets/sounds/glitch.wav","static")
     
-
     local verticlePadding = Game.windowHeight * 0.05
- 
 
     local eyeRadius = Game.windowWidth * 0.1
 

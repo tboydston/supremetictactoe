@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You the one who gave me limitless intelligence"
+        value="You're the one who gave me limitless intelligence"
     },
     {
         action="pause",
