@@ -1,9 +1,11 @@
 -- Global general utility functions
 local utils = {}
 
--- Shallow ( fast, 1st level ) duplication of one table into another. 
--- orig    table  Orignial table
--- return  table  Copy ( not pointer ) or original table. 
+--[[
+   Shallow ( fast, 1st level ) duplication of one table into another.
+   @param orig    table  Orignial tabl
+   @return  table  Copy ( not pointer ) or original table. 
+]]
 function utils:shallowcopy(orig)
     local orig_type = type(orig)
     local copy
@@ -18,9 +20,11 @@ function utils:shallowcopy(orig)
     return copy
 end
 
--- Deep ( slow, multi-level ) duplication of one table into another. 
--- orig    table  Orignial table
--- return  table  Copy ( not pointer ) or original table. 
+--[[
+    Deep ( slow, multi-level ) duplication of one table into another.
+    @param orig  table  Orignial table
+    @return table  Copy ( not pointer ) or original table. 
+]]
 function utils:deepcopy(orig)
     local orig_type = type(orig)
     local copy
@@ -36,18 +40,22 @@ function utils:deepcopy(orig)
     return copy
 end
 
--- Return highest and lowest value in an unsorted table. 
--- evalTable  table  Table we are evaluating. 
--- return     table  Table where index 1 is lowest value index 2 is highest. 
+--[[
+   Return highest and lowest value in an unsorted table. 
+   @param evalTable  table  Table we are evaluating. 
+   @return table  Table where index 1 is lowest value index 2 is highest. 
+]]
 function utils:tableLowHigh(evalTable)
     table.sort(evalTable)
     return {evalTable[1],evalTable[#evalTable]}
 end
 
--- Split string into table deliminated by specified seperator. 
--- inputstr  string  String being evaluated. 
--- sep       string  Deliminator
--- return    table   Table of string seperated by deliminator. 
+--[[
+    Split string into table deliminated by specified seperator. 
+    @param  inputstr string  String being evaluated.
+    @param  sep string  Deliminator
+    @return table Table of string seperated by deliminator. 
+]]
 function utils:split (inputstr, sep)
 
     if sep == nil then
@@ -60,9 +68,12 @@ function utils:split (inputstr, sep)
     return t
 end
 
--- Sort a table randomly.  
--- sortTable  table 
--- return table 
+
+--[[
+    Sort a table randomly.
+    @param sortTable  table 
+    @return return table 
+]]
 function utils:randomSort ( sortTable ) 
     
     local workingTable = utils.deepcopy(sortTable)
@@ -79,9 +90,12 @@ function utils:randomSort ( sortTable )
 
 end
 
--- Check if value in table. Does not find sub string in value. 
--- needle   string  Value your are looking for.
--- hayStack table   Table you are searching in.  
+--[[
+    Check if value in table. Does not find sub string in value.
+    @param needle string  Value your are looking for.
+    @param hayStack table Table you are searching in.  
+    @return bool
+]]
 function utils:inTable(needle,hayStack)
 
     for key, value in pairs(hayStack) do
@@ -94,13 +108,16 @@ function utils:inTable(needle,hayStack)
 
 end 
 
--- Determine if submited x,y value is in a defined rectangle. 
--- clickX     number Mouse click x
--- clickY     number Mouse click y
--- rectX       number Square x
--- rectY       number Square Y
--- rectWidth   number Width of square
--- rectHeight  number Height of square
+--[[
+    Determine if submited x,y value is in a defined rectangle. 
+    @param clickX     number Mouse click x
+    @param clickY     number Mouse click y
+    @param rectX       number Square x
+    @param rectY       number Square Y
+    @param rectWidth   number Width of square
+    @param rectHeight  number Height of square
+    @return bool 
+]]
 function utils:inSquare(clickX,clickY,rectX,rectY,rectWidth,rectHeight) 
 
     if ( clickX > rectX and clickX < rectX + rectWidth ) and
@@ -112,20 +129,12 @@ function utils:inSquare(clickX,clickY,rectX,rectY,rectWidth,rectHeight)
 
 end 
 
-function utils:tableDump(o)
-    if type(o) == 'table' then
-       local s = '{ '
-       for k,v in pairs(o) do
-          if type(k) ~= 'number' then k = '"'..k..'"' end
-          s = s .. '['..k..'] = ' .. self:tableDump(v) .. ','
-       end
-       return s .. '} '
-    else
-       print(tostring(o))
-    end
- end
-
-
+--[[
+    Checks it 2 tables match
+    @params a table
+    @params b table 
+    @return bool
+]]
 function utils:tablesMatch( a, b )
     return table.concat(a) == table.concat(b)
 end

@@ -3,6 +3,10 @@ local sceneManager = {
     current = ""
 }
 
+--[[
+    Autoload scenes from the /scenes directory. 
+    @param startScene string Name of scene to start at. 
+]]
 function sceneManager.load(startScene) 
     
     local sceneFile = love.filesystem.getDirectoryItems( "scenes/" )
@@ -19,6 +23,11 @@ function sceneManager.load(startScene)
     
 end
 
+--[[
+    Change to a new scene and call scenes load function. 
+    @param startScene string Name of next scene.
+
+]]
 function sceneManager.change(newScene)
     
     if sceneManager.scenes[newScene] == nil then 
@@ -32,16 +41,18 @@ function sceneManager.change(newScene)
 
 end
 
+--[[
+    Return current string.
+    @return string Current scene name. 
+]]
 function sceneManager.current()
     return sceneManager.current
 end
 
 
-function sceneManager.update()
-    if sceneManager.scenes[sceneManager.current].update ~= nil then 
-        sceneManager.scenes[sceneManager.current].update()
-    end
-end
+--[[
+    Below functions are path through functions that pass the love native funcitons to the active secene.
+]]
 
 function sceneManager.update()
     sceneManager.pass("update")
@@ -69,6 +80,9 @@ function sceneManager.mousepressed(x, y, button, istouch)
     end
 end
 
+--[[
+    Checks it function available in scene, if so passes request to that function.
+]]
 function sceneManager.pass(func)
     if sceneManager.scenes[sceneManager.current][func] ~= nil then 
         sceneManager.scenes[sceneManager.current][func]()

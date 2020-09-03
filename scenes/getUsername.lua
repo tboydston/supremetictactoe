@@ -1,7 +1,8 @@
 local getUsername = {
     backgroundColor = {1,1,1},
     playerName = {"",Game.playerNames[2]},
-    submitting = 0
+    submitting = 0,
+    nameCrashLength = 32
 }
 
 getUsername.possiblePlayerNames = {
@@ -23,6 +24,17 @@ getUsername.creatorNames = {
     "Grant Brown",
     "grant brown",
     "GRANT THE GREAT!!!"
+}
+
+getUsername.creatorNames = {
+    "Tracey",
+    "tracey",
+    "Tracey Boydston",
+    "tracey boydston",
+    "Grant",
+    "grant",
+    "Grant Brown",
+    "grant brown"
 }
 
 function getUsername.load()
@@ -82,9 +94,16 @@ function getUsername.draw()
 end
 
 function getUsername.mousepressed(x, y, button, istouch)
+    
     if getUsername.form:clicked(x,y) then
         getUsername.submit()
     end
+
+    if getUsername.supreme:clickInIris(x,y) then
+        print("click in iris")
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+    end
+
 end
 
 function getUsername.textinput(input)
@@ -122,13 +141,20 @@ function getUsername.submit()
         return 
     end
 
-    if #getUsername.form.inputText > 16 and #getUsername.form.inputText <= 255 then
+    if Utils:inTable(getUsername.form.inputText,getUsername.creatorNames) then
+        Game.playerNames[1] = getUsername.form.inputText
+        Game.debugMode = 1
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("creatorNameSubmitted") )
+        return
+    end
+
+    if #getUsername.form.inputText > 16 and #getUsername.form.inputText <= getUsername.nameCrashLength then
         Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooLong") )
         return
     end
 
-    if #getUsername.form.inputText >= 255 then
+    if #getUsername.form.inputText >= getUsername.nameCrashLength then
         SceneManager.change('restarting')
     end
 

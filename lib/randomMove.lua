@@ -1,7 +1,16 @@
+--[[
+    Dumb AI that picks a random move on the board given the current board state. 
+]]
+
 local randomMove = {
 
 }
 
+--[[
+    Chooses a random move based on the current boards state. 
+    @param boardState  Board state table {"","x","o","","","x","o","",""} 
+    @return number Position in board state table to make next move. 
+]]
 function randomMove.chooseRandomMove(boardState)
     
     local emptySquares = randomMove.getAvailableMoves(boardState)
@@ -9,6 +18,11 @@ function randomMove.chooseRandomMove(boardState)
 
 end 
 
+--[[
+    Gets available moves from board state.
+    @param boardState table Board state table {"","x","o","","","x","o","",""} 
+    @return availableMoves table  
+]]
 function randomMove.getAvailableMoves(boardState)
 
     local availableMoves = {}
