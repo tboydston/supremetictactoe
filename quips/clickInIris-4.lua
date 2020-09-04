@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Ouch! does your mother know your a bully."
+        value="Ouch!! Does your mother know you're a bully?"
     },
     {
         action="pause",

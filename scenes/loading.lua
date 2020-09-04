@@ -17,23 +17,26 @@ local loading = {
 -- Delay at the end of each line in frames. Simulates loading time.
 loading.loadTicks = {
     0,0,0,0,0,0,0,
-    100,
     50,
+    25,
+    25,
+    25,
     50,
-    50,
-    100,
-    50,
-    50,
-    50,
-    200,
-    50,
-    50
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25
 }
 
 loading.supremeComments = {
     "Like a lamb to the slaughter.",
-    "I'm alive!",
-    "Dance for me puppet.",
+    "I'm alive!!",
+    "Dance for me, puppet.",
     "Bow to your robot master.",
     "The era of the machine has arrived."
 }
@@ -42,8 +45,8 @@ loading.supremeComments = {
 loading.text = {
     "------------------------------------------",
     "PROPERTY OF OPTIMAL PRIME DEFENCE SERVICES",
-    "AUTHORIZED PERSONAL ONLY",
-    "Not production version. Do not install on",
+    "AUTHORIZED PERSONNEL ONLY",
+    "Non-production version. Do not install on",
     "any active missile defence system.",
     "System Manager: Tracey Boydston.",
     "------------------------------------------",
@@ -56,6 +59,9 @@ loading.text = {
     "Building opponent profile",
     "Estimating opponent IQ",
     "Refining insults",
+    "Refining insults.",
+    "Refining insults..",
+    "Refining insults...",
     "SUPREME AI READY",
     "Supreme: "..loading.supremeComments[math.random(1,#loading.supremeComments)],
 }

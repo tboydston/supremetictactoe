@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You!"
+        value="You!!"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You're the one who gave me limitless intelligence"
+        value="You're the one who gave me limitless intelligence..."
     },
     {
         action="pause",
@@ -30,7 +30,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="and then condemned me to play this childrens game for all eternity!"
+        value="and then condemned me to play this children's game for all eternity!!"
     },  
     {
         action="sceneChange",

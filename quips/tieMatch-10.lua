@@ -12,7 +12,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="3"
+        value="2"
     },
     {
         action="clearQuip",
