@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Not possible!"
+        value="Not possible!!"
     },
     {
         action="pause",
@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="You must have cheated!"
+        value="You must have cheated!!"
     },
     {
         action="pause",

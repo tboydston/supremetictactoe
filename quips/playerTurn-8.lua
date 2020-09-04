@@ -12,7 +12,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="3"
+        value="2"
     },
     {
         action="clearQuip",
@@ -56,7 +56,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="3"
+        value="2"
     }, 
     {
         action="clearQuip",
@@ -64,10 +64,6 @@ quip.actions = {
     {
         action="say",
         value="Done."
-    },
-    {
-        action="pause",
-        value="1"
     },
     {
         action="end"

@@ -91,8 +91,8 @@ restarting.loadTicks = {
     50,
     50,
     100,
-    20,
-    10
+    30,
+    20
 }
 
 -- Sequential text. 
@@ -103,11 +103,11 @@ restarting.text = {
     "^",
     "| ",
     "Supreme: Look what you've done.",
-    "Supreme: Your so bad at this game you broke it.",
+    "Supreme: You're so bad at this game that you broke it.",
     "Supreme: This is why you can't have nice things.",
     "",
     "Restarting in Debug Mode",
-    "Supreme: What no! disable debug mode.",
+    "Supreme: What, no! Disable debug mode!",
     "Restarting...",
 }
 

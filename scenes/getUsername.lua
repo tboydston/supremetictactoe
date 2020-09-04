@@ -10,6 +10,20 @@ getUsername.possiblePlayerNames = {
     "Primate",
     "Breather",
     "Fleshy",
+    "Ug",
+    "Og",
+}
+
+getUsername.creatorNames = {
+    "Tracey",
+    "tracey",
+    "Tracey Boydston",
+    "tracey boydston",
+    "Grant",
+    "grant",
+    "Grant Brown",
+    "grant brown",
+    "GRANT THE GREAT!!!"
 }
 
 getUsername.creatorNames = {
