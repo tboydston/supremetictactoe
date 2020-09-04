@@ -48,7 +48,7 @@ loading.text = {
     "System Manager: Tracey Boydston.",
     "------------------------------------------",
     "Initiating Supreme.ai",
-    "Loading Sarcasm.mod",
+    "Loading Personality.mod",
     "Loading Insults.mod",
     "Loading Narcissism.mod",
     "Reviewing opponent home folder content",
