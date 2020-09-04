@@ -22,6 +22,7 @@ DebugMenu = require "entities/debugMenu"
 KillScreen = require "entities/killScreen"
 WinnerMessage = require "entities/winnerMessage"
 DebugNotation = require "entities/debugNotation"
+WagerDialogue = require "entities/wagerDialogue"
 
 math.randomseed( os.time() )
 love.window.setTitle( "Supreme TicTacToe" )
