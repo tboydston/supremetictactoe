@@ -107,7 +107,7 @@ restarting.text = {
     "Supreme: This is why you can't have nice things.",
     "",
     "Restarting in Debug Mode",
-    "Supreme: What, no!! Disable debug mode!!",
+    "Supreme: What, no! Disable debug mode!",
     "Restarting...",
 }
 
