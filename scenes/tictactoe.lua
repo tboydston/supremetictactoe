@@ -1,7 +1,7 @@
 local tictactoe = {
     backgroundColor = {1,1,1},
     playerType = {"h","c"},
-    playStrategy = {"h","minMax"},
+    playStrategy = {"h","random"},
     winState = 0,
     playerMove = 1,
     playerShapes = {"x","o"},
@@ -11,7 +11,7 @@ local tictactoe = {
     debugTieStackOverflowLimit = 255,
     maxScore = 10,
     gameOver = 0,
-
+    acceptedWager = 0
 }
 
 function tictactoe.load()
@@ -40,6 +40,12 @@ function tictactoe.load()
      
     tictactoe.quipKillScreenLocation = { Game.windowWidth * 0.01, Game.windowHeight * 0.4 }
     tictactoe.quipKillScreenWidth = Game.windowWidth * 0.13
+
+    local dialogueBoxDim = {Game.windowWidth * 0.4, Game.windowHeight * 0.2 }
+    local dialogueBoxLoc = {
+        ( Game.windowWidth - dialogueBoxDim[1] )/2,
+        ( Game.windowHeight * 0.4 )
+    }
 
     tictactoe.quiper = Quiper:new({
         location = quipLocation,
@@ -88,6 +94,14 @@ function tictactoe.load()
         location = { 0, Game.windowHeight * 0.3 },
         dimensions = {Game.windowWidth,Game.windowHeight * 0.7},
         show = 0
+    })
+
+    tictactoe.wagerDialogue = WagerDialogue:new({
+        location = {dialogueBoxLoc[1],dialogueBoxLoc[2]},
+        dimensions = {dialogueBoxDim[1],dialogueBoxDim[2]},
+        fontSize = dialogueBoxDim[2] * 0.15,
+        buttonFontSize = dialogueBoxDim[2] * 0.10,
+        shoe = false
     })
 
     tictactoe.gameOverReset()
@@ -411,6 +425,7 @@ function tictactoe.updateWinState(newWinState)
     
         if newWinState == 1 then
             tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerGameWin") )
+            
         end
         tictactoe.gameIsOver()
         return
