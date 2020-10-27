@@ -32,6 +32,9 @@ function game.reset()
     game.runTime = 0
     game.playerNames = {"Player 1","Supreme"}
     game.startTime = love.timer.getTime()
+    game.load()
 end
+
+
 
 return game

@@ -138,5 +138,34 @@ end
 function utils:tablesMatch( a, b )
     return table.concat(a) == table.concat(b)
 end
+
+--[[
+    Reverse table 
+    @pramas t table 
+    @return table
+]]
+function utils:reverse(t)
+    local n = #t
+    local i = 1
+    while i < n do
+      t[i],t[n] = t[n],t[i]
+      i = i + 1
+      n = n - 1
+    end
+end
+
+--[[
+    Removes nil values from table
+    @parama t table
+    @return table
+]]
+
+function utils:removeNil(t)
+    local ans = {}
+    for _,v in pairs(t) do
+      ans[ #ans+1 ] = v
+    end
+    return ans
+end
  
 return utils

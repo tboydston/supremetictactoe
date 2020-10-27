@@ -1,6 +1,7 @@
 .DS_Store
 .vscodegit 
 .vscode
+.vs
 makelove.toml
 builds
-SupremeTicTacToe.love
+SupremeTicTacToe.love 

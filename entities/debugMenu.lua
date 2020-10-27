@@ -66,7 +66,7 @@ function debugMenu:draw()
                 self.rowHeight
             }
 
-            love.graphics.print( self.debugTable[row][column], self.textLoc[1] + Font:getWidth( currentText ), self.textLoc[2]+self.rowHeight*row )       
+     
             currentText = currentText..self.debugTable[row][column]..self.columnPadding   
         end
     end

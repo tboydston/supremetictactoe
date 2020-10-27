@@ -1,5 +1,5 @@
 local quip = {
-    type = "clickInIris",
+    type = "quit",
 }
 
 quip.actions = {
@@ -8,14 +8,14 @@ quip.actions = {
     },
     {
         action="say",
-        value="Jerk!"
+        value="Had enough huh?"
     },
     {
         action="pause",
         value="2"
-    }, 
+    },
     {
-        action="end"
+        action="quit",
     }
 }
 

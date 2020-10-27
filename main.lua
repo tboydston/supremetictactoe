@@ -9,7 +9,7 @@ Utils = require "lib/utilities"
 SceneManager = require "lib/sceneManager"
 QuipManager = require "lib/quipManager"
 Game = require "lib/game"
-MinMaxMove = require "lib/miniMaxMove"
+MiniMaxMove = require "lib/miniMaxMove"
 RandomMove = require "lib/randomMove"
 
 -- Entities
@@ -22,7 +22,11 @@ DebugMenu = require "entities/debugMenu"
 KillScreen = require "entities/killScreen"
 WinnerMessage = require "entities/winnerMessage"
 DebugNotation = require "entities/debugNotation"
+Dialogue = require "entities/dialogue"
 WagerDialogue = require "entities/wagerDialogue"
+Radar = require "entities/radar"
+SatNet = require "entities/satNet"
+GameMenu = require "entities/gameMenu"
 
 math.randomseed( os.time() )
 love.window.setTitle( "Supreme TicTacToe" )

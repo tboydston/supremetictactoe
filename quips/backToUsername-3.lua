@@ -1,5 +1,5 @@
 local quip = {
-    type = "clickInIris",
+    type = "backToUsername",
 }
 
 quip.actions = {
@@ -8,14 +8,15 @@ quip.actions = {
     },
     {
         action="say",
-        value="Jerk!"
+        value="Couldn't take it huh?"
     },
     {
         action="pause",
         value="2"
-    }, 
+    },
     {
-        action="end"
+        action="sceneChange",
+        value="getUsername"
     }
 }
 

@@ -23,22 +23,18 @@ getUsername.creatorNames = {
     "grant",
     "Grant Brown",
     "grant brown",
-    "GRANT THE GREAT!!!"
+    "GRANT THE GREAT!!!",
+    "riley",
+    "Riley",
+    "Riley Boydston",
+    "Stu",
+    "Stuart Grinnel",
+    "Stuart"
 }
 
-getUsername.creatorNames = {
-    "Tracey",
-    "tracey",
-    "Tracey Boydston",
-    "tracey boydston",
-    "Grant",
-    "grant",
-    "Grant Brown",
-    "grant brown"
-}
 
 function getUsername.load()
-
+    
     local eyeCenter = {Game.windowWidth * 0.5,Game.windowHeight * 0.15}
     local eyeRadius = Game.windowWidth * 0.05
     

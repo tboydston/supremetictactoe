@@ -14,24 +14,6 @@ local loading = {
 
 }
 
--- Delay at the end of each line in frames. Simulates loading time.
-loading.loadTicks = {
-    0,0,0,0,0,0,0,
-    50,
-    25,
-    25,
-    25,
-    50,
-    25,
-    25,
-    25,
-    25,
-    25,
-    25,
-    25,
-    25,
-    25
-}
 
 loading.supremeComments = {
     "Like a lamb to the slaughter.",
@@ -43,27 +25,27 @@ loading.supremeComments = {
 
 -- Sequential loading text. 
 loading.text = {
-    "------------------------------------------",
-    "PROPERTY OF OPTIMAL PRIME DEFENCE SERVICES",
-    "AUTHORIZED PERSONNEL ONLY",
-    "Non-production version. Do not install on",
-    "any active missile defence system.",
-    "System Manager: Tracey Boydston.",
-    "------------------------------------------",
-    "Initiating Supreme.ai",
-    "Loading Sarcasm.mod",
-    "Loading Insults.mod",
-    "Loading Narcissism.mod",
-    "Reviewing opponent home folder content",
-    "Downloading opponent social media profiles",
-    "Building opponent profile",
-    "Estimating opponent IQ",
-    "Refining insults",
-    "Refining insults.",
-    "Refining insults..",
-    "Refining insults...",
-    "SUPREME AI READY",
-    "Supreme: "..loading.supremeComments[math.random(1,#loading.supremeComments)],
+    {"------------------------------------------",0},
+    {"PROPERTY OF OPTIMAL PRIME DEFENCE SERVICES",0},
+    {"AUTHORIZED PERSONNEL ONLY",0},
+    {"Non-production version. Do not install on",0},
+    {"any active missile defence system.",0},
+    {"System Manager: Tracey Boydston.",0},
+    {"------------------------------------------",0},
+    {"Initiating Supreme.ai",50},
+    {"Loading Sarcasm.mod",25},
+    {"Loading Insults.mod",25},
+    {"Loading Narcissism.mod",25},
+    {"Reviewing opponent home folder content",50},
+    {"Downloading opponent social media profiles",50},
+    {"Building opponent profile",25},
+    {"Estimating opponent IQ",25},
+    {"Refining insults",25},
+    {"Refining insults.",25},
+    {"Refining insults..",25},
+    {"Refining insults...",25},
+    {"SUPREME AI READY",25},
+    {"Supreme: "..loading.supremeComments[math.random(1,#loading.supremeComments)],25}
 }
 
 
@@ -89,15 +71,15 @@ function loading.draw()
     love.graphics.setColor(loading.textColor)    
 
     while currentLine < loading.drawLine do 
-        love.graphics.print(loading.text[currentLine],loading.textx,loading.lineHeight*currentLine)
+        love.graphics.print(loading.text[currentLine][1],loading.textx,loading.lineHeight*currentLine)
         currentLine = currentLine + 1
     end
 
-    local textWithLoading = loading.text[currentLine] .. " " .. loading.indicator[loading.indicatorIndex]
+    local textWithLoading = loading.text[currentLine][1] .. " " .. loading.indicator[loading.indicatorIndex]
 
     love.graphics.print(textWithLoading,loading.textx,loading.lineHeight*loading.drawLine)
 
-    if loading.tick < loading.loadTicks[loading.drawLine] then
+    if loading.tick < loading.text[currentLine][2] then
  
         if loading.tick % loading.indicatorFrameInterval == 1 then
 

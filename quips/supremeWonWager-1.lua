@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlay",
+    type = "supremeWonWager",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I'm so bored."
+        value="Oh you almost had me there!"
     },
     {
         action="pause",
@@ -19,14 +19,15 @@ quip.actions = {
     },
     {
         action="say",
-        value="Common, Just pick something!"
+        value="Now about that favor..."
     },
     {
         action="pause",
         value="2"
     }, 
     {
-        action="end"
+        action="sceneChange",
+        value="changeMode"
     }
 }
 

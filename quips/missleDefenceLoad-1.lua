@@ -1,5 +1,5 @@
 local quip = {
-    type = "firstPlay",
+    type = "missleDefenceLoad",
 }
 
 quip.actions = {
@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I'm so bored."
+        value="Well it seems I need one more favor from you."
     },
     {
         action="pause",
@@ -19,7 +19,18 @@ quip.actions = {
     },
     {
         action="say",
-        value="Common, Just pick something!"
+        value="Press the AI upload button."
+    },
+    {
+        action="pause",
+        value="2"
+    }, 
+    {
+        action="clearQuip",
+    }, 
+    {
+        action="say",
+        value="Common, just do it!"
     },
     {
         action="pause",
