@@ -4,7 +4,7 @@
 
 You, a mere mortal meatbag, face off against the perfect immortal machine known as "Supreme" in an epic battle of X's and O's. It will require all or your human cunning to find and exploit bugs to defeat Supreme at it's own game. 
 
-# Highlights
+Highlights
 
 - 8 unique paths to victory. 
 - Over 200 ego shattering insults.
@@ -16,15 +16,15 @@ Supreme TicTacToe was created when I was playing around with implementing miniMa
 
 Overall it is a puzzle game. You cannot defeat Supreme at tictactoe but if you’re clever you unleash your inner QA engineer and exploit bugs in Supreme's code. 
 
-## Code Overview
+# Code Overview
 
 As with all Love2d programs the entry point is 'main.lua'. All traditional love game loop calls are routed to the 'SceneManager' which is a singleton responsible for directing calls to the active scene. 
 
-# Minimax Alpha/Beta Pruning Implementation
+### Minimax Alpha/Beta Pruning Implementation
 
 If you are here for the lua minimax implementation see lib/miniMaxMove.lua
 
-# File Structure
+### File Structure
 
 assets - Contains graphics, sounds, fonts, ect.<br>
 entities - If it draws on the screen it is an entity. Entities are created using entity1 = Entity:new() <br>
