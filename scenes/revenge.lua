@@ -23,6 +23,7 @@ function revenge.load()
     revenge.font = love.graphics.setNewFont( "assets/fonts/VCR_OSD_MONO.ttf", revenge.fontSize )
     revenge.typeSound = love.audio.newSource("assets/sounds/keyPress.wav","static")
     
+    
 end
 
 function revenge.draw()
@@ -60,6 +61,8 @@ function revenge.draw()
 
     else 
         if #revenge.text == revenge.drawLine then
+            Game.save[2][2] = 1
+            Game.updateSave()   
             Game.reset()
             SceneManager.change("getUsername")
         else 
@@ -103,7 +106,7 @@ revenge.text = {
     "success",
     "Supreme: It looks like your trending.",
     "SYSTEM: PRIVILEDGE ESCALATION DETECTED",
-    "Please report further issues to the appropriate team memeber.",
+    "Please report further issues to the appropriate team member.",
     "Development: Tracey Boydston",
     "QA: Grant Brown, Riley Boydston, Stuart Grinnel",
     "Restarting...",

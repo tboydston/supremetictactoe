@@ -199,6 +199,8 @@ function changeMode.submit()
         changeMode.text[#changeMode.text+1] = {"ERROR: supreme.ai not found.",100}
         changeMode.text[#changeMode.text+1] = {"Restarting in recovery mode.",100}
         changeMode.changeScene = 1
+        Game.save[6][2] = 1
+        Game.updateSave()   
         return
     end
 
@@ -222,6 +224,8 @@ function changeMode.submit()
         changeMode.text[#changeMode.text+1] = {"ERROR: supreme.ai not found.",100}
         changeMode.text[#changeMode.text+1] = {"Restarting in recovery mode.",100}
         changeMode.changeScene = 1
+        Game.save[3][2] = 1
+        Game.updateSave()   
         return
     end
 

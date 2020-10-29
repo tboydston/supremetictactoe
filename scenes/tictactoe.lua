@@ -1,28 +1,25 @@
--- @refactor The menu system need to be redone. To confusing. Needs a unified system.
+-- @refactor The menu system need to be redone. To0 confusing. Needs a unified system.
 local tictactoe = {
     backgroundColor = {1,1,1},
-    playerType = {"h","c"},
-    playStrategy = {"h","mixed"},
+    playerType = {"h","c"}, -- "h" = human, "c" = computer
+    playStrategy = {"h","mixed"}, -- "h or na" = no AI strategty, "random" = picks random square, "minimax" = Minimax unbeatable algo, "mixed" = Will play random until one point from loosing and then switch to minimax.
     strategySwitchThreshold = 3, -- Number of moves remaining before switching from miniMax to random strategy. 
     winState = 0,
     playerMove = 1,
-    playerShapes = {"x","o"},
-    playerTurnQuipChance = 30,
-    supremeTurnQuipChance = 30,
-    drawDebug = 1,
-    debugTieStackOverflowLimit = 255,
-    maxScore = 3,
+    playerShapes = {"x","o"}, -- Start shapes for player. Must be "x" or "o"
+    playerTurnQuipChance = 30, -- Chance the AI will quip on the players turn. 
+    supremeTurnQuipChance = 30, -- Chance the AI will quip on it's turn. 
+    debugTieStackOverflowLimit = 255, -- Number of ties before showing the kill screen. 
+    maxScore = 2, -- How many points the game is played to. 
     gameOver = 0,
-    acceptedWager = 1,
-    resetDisabled = 0,
-    menuButtonLoc = {20,20},
-    irisClickCount = 0,
-    irisClickLimit = 10
+    acceptedWager = 0, -- Has the player accepted Supreme's wager. 
+    resetDisabled = 0, -- Can the users reset. 
+    menuButtonLoc = {20,20}, -- Where is the menu button draw.
+    irisClickCount = 0, -- How many times has the iris been clicked. 
+    irisClickLimit = 10 -- how many times can it be clicked before going to revenge endings
 }
 
 function tictactoe.load()
-
-
 
     tictactoe.playerSounds = {
         love.audio.newSource("assets/sounds/player1move.wav","static"),
@@ -91,8 +88,7 @@ function tictactoe.load()
             {'P2 Strategy:'},
             {'NA','random','miniMax','mixed'}
         },
-        -- drawDebug = Game.debugMode,
-        drawDebug = 1,
+        drawDebug = Game.debugMode,
         activeTable = {{},{},{1,0},{},{0,1},{},{1,0,0,0},{},{0,0,0,1}},
     })
 
@@ -215,7 +211,7 @@ function tictactoe.mousepressed(x, y, button, istouch)
         if result == "accept" then
             tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("wagerAccepted") )
             tictactoe.toggleWagerDio()
-            tictactoe.wagerAccepted = 1
+            tictactoe.acceptedWager = 1
             return 
         end
 
@@ -230,7 +226,7 @@ function tictactoe.mousepressed(x, y, button, istouch)
     if tictactoe.gameMenu.show == 1 then 
         
         local result = tictactoe.gameMenu:click(x,y) 
-print(result)
+
         if result == "quit" then
             tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("quit") )
             return 
@@ -391,9 +387,11 @@ function tictactoe.processGameState()
     tictactoe.scoreBoard:updateScore(tictactoe.playerMove)
     tictactoe.updateWinState(tictactoe.playerMove)
     
-    if tictactoe.scoreBoard.scores[tictactoe.playerMove] == tictactoe.maxScore - 1 and 
+    if 
+    tictactoe.scoreBoard.scores[tictactoe.playerMove] == tictactoe.maxScore - 1 and 
     Game.debugMode == 0 and 
-    tictactoe.playerType[tictactoe.playerMove] == "h" then
+    tictactoe.playerType[tictactoe.playerMove] == "h" 
+    then
         tictactoe.toggleWagerDio()
     end
 
@@ -403,10 +401,22 @@ end
 function tictactoe.evaluteTieOverflowEndgame()
 
     if tictactoe.scoreBoard.scores[3] >= tictactoe.debugTieStackOverflowLimit then
+        
         tictactoe.killScreen.show = 1
         tictactoe.quiper.location = tictactoe.quipKillScreenLocation
+        
+        if Game.playerNames[1] == Game.playerNames[2] then
+            Game.save[5][2] = "1"
+            Game.updateSave()
+        else 
+            Game.save[8][2] = "1"
+            Game.updateSave()
+        end
+
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("bufferOverflow") )
     end 
+
+
         
 end
 
@@ -579,7 +589,7 @@ function tictactoe.updateWinState(newWinState)
     tictactoe.scoreBoard.winState = newWinState
 
     if tictactoe.scoreBoard.scores[1] >= tictactoe.maxScore or tictactoe.scoreBoard.scores[2] >= tictactoe.maxScore then
-
+        print( "tictactoe.acceptedWager",tictactoe.acceptedWager )
         if newWinState == 2 then
             if tictactoe.acceptedWager == 0 then 
                 tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeGameWin") )
@@ -590,7 +600,9 @@ function tictactoe.updateWinState(newWinState)
         end 
     
         if newWinState == 1 then
-            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerGameWin") )    
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerGameWin") )
+            Game.save[1][2] = "1"
+            Game.updateSave()   
         end
 
         tictactoe.gameIsOver()

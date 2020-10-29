@@ -12,6 +12,7 @@ Game = require "lib/game"
 MiniMaxMove = require "lib/miniMaxMove"
 RandomMove = require "lib/randomMove"
 
+-- @refactor change to autoloading
 -- Entities
 Supreme = require "entities/supreme"
 Quiper = require "entities/quiper"
@@ -27,6 +28,7 @@ WagerDialogue = require "entities/wagerDialogue"
 Radar = require "entities/radar"
 SatNet = require "entities/satNet"
 GameMenu = require "entities/gameMenu"
+EndingStatus = require "entities/endingStatus"
 
 math.randomseed( os.time() )
 love.window.setTitle( "Supreme TicTacToe" )
