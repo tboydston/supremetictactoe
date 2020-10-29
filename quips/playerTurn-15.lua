@@ -6,9 +6,9 @@ quip.actions = {
     {
         action="clearQuip",
     },
-	{
+    {
         action="say",
-        value="Ouch, not a great choice."
+        value="Are you even paying attention?"
     },
     {
         action="end"

@@ -99,15 +99,15 @@ function getUsername.mousepressed(x, y, button, istouch)
     end
 
     if getUsername.supreme:clickInIris(x,y) then
-        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
-        if getUsername.irisClickCount < getUsername.irisClickLimit then
-            getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
-        else 
-            Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
-            getUsername.quiper:loadQuip(QuipManager.getRandomQuip("usernameIrisOverclick") )
+        if  getUsername.quiper.quipping == 0 then
+            if getUsername.irisClickCount < getUsername.irisClickLimit then
+                getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+            else 
+                Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
+                getUsername.quiper:loadQuip(QuipManager.getRandomQuip("usernameIrisOverclick") )
+            end
+            getUsername.irisClickCount  = getUsername.irisClickCount + 1
         end
-        getUsername.irisClickCount  = getUsername.irisClickCount + 1
-        
     end
 
 end

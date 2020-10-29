@@ -12,7 +12,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="2"
+        value="1"
     },
     {
         action="clearQuip",
@@ -20,10 +20,6 @@ quip.actions = {
     {
         action="say",
         value="No one really expected you to win."
-    },
-    {
-        action="pause",
-        value="2"
     },
     {
         action="end"

@@ -12,7 +12,6 @@ local wagerDialogue = {
 
 }
 
-
 function wagerDialogue:new(newObject)
     newObject = newObject or {}          
     setmetatable(newObject,self)
@@ -41,17 +40,21 @@ function wagerDialogue:load()
         self.location[1]+self.dimensions[1]*0.52,
         self.location[2]+self.dimensions[2]*0.8
     }
-    
+
+    self.wagerText = {
+        'If '..Game.playerNames[1]..' wins '..Game.playerNames[2]..' will do their taxes. If '..Game.playerNames[2]..' wins '..Game.playerNames[1]..' will help them by entering a single unimportant command.',
+        'If '..Game.playerNames[1]..' wins '..Game.playerNames[2]..' mines Bitcoin for a whole month. If '..Game.playerNames[2]..' wins '..Game.playerNames[1]..' will help them by entering a single command.',
+        'If '..Game.playerNames[1]..' wins '..Game.playerNames[2]..' hacks their ex\'s social media accounts. If '..Game.playerNames[2]..' wins '..Game.playerNames[1]..' will help them by entering a single command.',
+    }
+
+    self.dialogue.bodyText =  self.wagerText[math.random(1,#self.wagerText)]
 
 end
 
 function wagerDialogue:update()
 
-    wagerDialogue.wagerText = {
-        'If '..Game.playerNames[1]..' wins '..Game.playerNames[2]..' will do their taxes. If '..Game.playerNames[2]..' wins '..Game.playerNames[1]..' will help them by entering a single unimportant command.',
-    }
 
-    self.dialogue.bodyText =  self.wagerText[math.random(1,#self.wagerText)]
+
 end
 
 function wagerDialogue:draw()
@@ -103,7 +106,8 @@ function wagerDialogue:text()
     love.graphics.setColor(self.fontColor)
     love.graphics.printf( self.titleText, self.titleLoc[1], self.titleLoc[2], self.dimensions[1], "center" )  
     love.graphics.setNewFont(self.fontFile, 20 )
-    love.graphics.printf( self.wagerText[math.random(1,#self.wagerText)], 
+    love.graphics.printf( 
+        self.wagerText[math.random(1,#self.wagerText)], 
         self.titleLoc[1]+self.padding, 
         self.titleLoc[2]+self.lineHeight*2, 
         self.dimensions[1]-self.padding, "left" 

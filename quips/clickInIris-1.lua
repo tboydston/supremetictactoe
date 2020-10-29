@@ -11,10 +11,6 @@ quip.actions = {
         value="Ouch!"
     },
     {
-        action="pause",
-        value="2"
-    }, 
-    {
         action="end"
     }
 }

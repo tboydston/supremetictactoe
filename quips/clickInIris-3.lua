@@ -11,10 +11,6 @@ quip.actions = {
         value="Stop picking on me!"
     },
     {
-        action="pause",
-        value="2"
-    }, 
-    {
         action="end"
     }
 }

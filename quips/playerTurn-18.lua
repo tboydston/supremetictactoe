@@ -8,29 +8,28 @@ quip.actions = {
     },
     {
         action="say",
-        value="Oh wow, what a good move."
-    },
-    {
-        action="pause",
-        value="1"
+        value="I"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="I am really going to need to think about my next move."
+        value="am"
     },
     {
-        action="pause",
-        value="2"
-    }, 
-    {
         action="clearQuip",
-    }, 
+    },
     {
         action="say",
-        value="Just kidding."
+        value="so"
+    },
+    {
+        action="clearQuip",
+    },
+    {
+        action="say",
+        value="bored!"
     },
     {
         action="end"

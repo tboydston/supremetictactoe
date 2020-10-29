@@ -11,10 +11,6 @@ quip.actions = {
         value="Ouch!! Does your mother know you're a bully?"
     },
     {
-        action="pause",
-        value="2"
-    }, 
-    {
         action="end"
     }
 }

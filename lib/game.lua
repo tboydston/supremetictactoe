@@ -28,7 +28,7 @@ function game.load(debug)
     game.runTime = 0
     game.playerNames = {"Player 1","Supreme"}
     game.loadSave()
-    Utils:print_r(game.save)
+
 end
 
 function game.update()

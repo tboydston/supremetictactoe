@@ -273,12 +273,15 @@ function tictactoe.mousepressed(x, y, button, istouch)
     end
 
     if tictactoe.supreme:clickInIris(x,y) then
-        if tictactoe.irisClickCount < tictactoe.irisClickLimit then
-            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
-        else 
-            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("revenge") )
+        if  tictactoe.quiper.quipping == 0 then
+            if tictactoe.irisClickCount < tictactoe.irisClickLimit then
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+            else 
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("revenge") )
+            end
+            tictactoe.irisClickCount  = tictactoe.irisClickCount + 1
         end
-        tictactoe.irisClickCount  = tictactoe.irisClickCount + 1
+
     end
 
 

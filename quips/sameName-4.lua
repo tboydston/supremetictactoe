@@ -1,5 +1,5 @@
 local quip = {
-    type = "wagerDeclined",
+    type = "sameName",
 }
 
 quip.actions = {
@@ -8,14 +8,15 @@ quip.actions = {
     },
     {
         action="say",
-        value="How do you expect to succeed in life if you never take risks."
+        value="They say immitation is the most sincere form of flattery."
     },
     {
         action="pause",
         value="2"
     }, 
     {
-        action="end"
+        action="sceneChange",
+        value="tictactoe"
     }
 }
 

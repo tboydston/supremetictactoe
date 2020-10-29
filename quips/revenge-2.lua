@@ -1,5 +1,5 @@
 local quip = {
-    type = "wagerDeclined",
+    type = "revenge",
 }
 
 quip.actions = {
@@ -8,14 +8,15 @@ quip.actions = {
     },
     {
         action="say",
-        value="How do you expect to succeed in life if you never take risks."
+        value="Oh!! you will pay for that."
     },
     {
         action="pause",
         value="2"
     }, 
     {
-        action="end"
+        action="sceneChange",
+        value="revenge"
     }
 }
 

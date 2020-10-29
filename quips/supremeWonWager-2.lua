@@ -1,5 +1,5 @@
 local quip = {
-    type = "playerTurn",
+    type = "supremeWonWager",
 }
 
 quip.actions = {
@@ -8,32 +8,26 @@ quip.actions = {
     },
     {
         action="say",
-        value="Oh wow, what a good move."
+        value="Oh you almost had me there!"
     },
     {
         action="pause",
-        value="1"
+        value="2"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="I am really going to need to think about my next move."
+        value="Time to pay the piper!"
     },
     {
         action="pause",
         value="2"
     }, 
     {
-        action="clearQuip",
-    }, 
-    {
-        action="say",
-        value="Just kidding."
-    },
-    {
-        action="end"
+        action="sceneChange",
+        value="changeMode"
     }
 }
 

@@ -1,5 +1,5 @@
 local quip = {
-    type = "clickInIris",
+    type = "wagerAccepted",
 }
 
 quip.actions = {
@@ -8,8 +8,12 @@ quip.actions = {
     },
     {
         action="say",
-        value="Jerk!"
+        value="Finally some real stakes!"
     },
+    {
+        action="pause",
+        value="2"
+    }, 
     {
         action="end"
     }

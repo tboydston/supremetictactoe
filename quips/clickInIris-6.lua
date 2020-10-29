@@ -1,14 +1,14 @@
 local quip = {
-    type = "playerTurn",
+    type = "clickInIris",
 }
 
 quip.actions = {
     {
         action="clearQuip",
     },
-	{
+    {
         action="say",
-        value="Ouch, not a great choice."
+        value="ug!"
     },
     {
         action="end"

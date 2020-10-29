@@ -6,9 +6,9 @@ quip.actions = {
     {
         action="clearQuip",
     },
-	{
+    {
         action="say",
-        value="Ouch, not a great choice."
+        value="Can I go back to calculating PI now?"
     },
     {
         action="end"

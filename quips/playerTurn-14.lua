@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Oh wow, what a good move."
+        value="I'd say we could play an easier game."
     },
     {
         action="pause",
@@ -19,18 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I am really going to need to think about my next move."
-    },
-    {
-        action="pause",
-        value="2"
-    }, 
-    {
-        action="clearQuip",
-    }, 
-    {
-        action="say",
-        value="Just kidding."
+        value="But I can't think of any."
     },
     {
         action="end"

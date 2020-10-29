@@ -1,14 +1,18 @@
 local quip = {
-    type = "playerTurn",
+    type = "firstPlay",
 }
 
 quip.actions = {
     {
         action="clearQuip",
     },
-	{
+    {
         action="say",
-        value="Ouch, not a great choice."
+        value="Pick the last square."
+    },
+    {
+        action="pause",
+        value="2"
     },
     {
         action="end"

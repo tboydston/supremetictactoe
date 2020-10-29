@@ -1,15 +1,19 @@
 local quip = {
-    type = "playerTurn",
+    type = "wagerAccepted",
 }
 
 quip.actions = {
     {
         action="clearQuip",
     },
-	{
+    {
         action="say",
-        value="Ouch, not a great choice."
+        value="Let the games begin!"
     },
+    {
+        action="pause",
+        value="2"
+    }, 
     {
         action="end"
     }

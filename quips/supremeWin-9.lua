@@ -11,10 +11,6 @@ quip.actions = {
         value="Another game, another victory."
     },
     {
-        action="pause",
-        value="2"
-    },
-    {
         action="end"
     }
 }
