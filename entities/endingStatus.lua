@@ -30,7 +30,7 @@ function endingStatus:draw()
         love.graphics.setNewFont(self.fontFile, self.fontSize)
         love.graphics.setColor(self.textColor)
 
-        love.graphics.print("End Path Found "..#self.endStates.." of "..#Game.save, self.location[1], self.location[2] )
+        love.graphics.print("End Paths Found "..#self.endStates.." of "..#Game.save, self.location[1], self.location[2] )
 
         for key, state in pairs(self.endStates) do
             love.graphics.print("- "..state, self.location[1], self.location[2]+self.rowHeight*key ) 
@@ -42,7 +42,7 @@ function endingStatus:draw()
 end
 
 function endingStatus:updateEndStates() 
-    print("updating end state")
+
     self.endStates = {}
     local currentStates = Game.save
     for key, state in pairs(currentStates) do

@@ -1,5 +1,7 @@
 # Supreme TicTacToe
 
+![banner](assets/header.jpg)
+
 ## Overview 
 
 You, a mere mortal meatbag, face off against the perfect immortal machine known as "Supreme" in an epic battle of X's and O's. It will require all or your human cunning to find and exploit bugs to defeat Supreme at it's own game. 
@@ -51,5 +53,8 @@ https://github.com/pfirsich/makelove
 
 # Thanks
 Thanks to Komodeo for playtesting and improving content.
+
+# License
+
 
 
