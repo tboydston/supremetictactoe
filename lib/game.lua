@@ -50,7 +50,7 @@ end
 function game.loadSave()
 
     -- fixed screwed up save.
-    game.save = love.filesystem.write(game.saveName,game.saveSerialize(game.endstates))
+    -- game.save = love.filesystem.write(game.saveName,game.saveSerialize(game.endstates))
     local fileInfo = love.filesystem.getInfo(game.saveName)
     local serSave = ""
 
