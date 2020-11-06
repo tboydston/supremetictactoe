@@ -152,6 +152,10 @@ function quiper:updateQuip()
         end
     end
 
+    if currenctAction.action == 'quit' then
+        love.event.quit()
+    end
+
     if currenctAction.action == 'sceneChange' then
         SceneManager.change(currenctAction.value)
     end

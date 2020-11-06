@@ -1,17 +1,22 @@
+-- @refactor The menu system need to be redone. To0 confusing. Needs a unified system.
 local tictactoe = {
     backgroundColor = {1,1,1},
-    playerType = {"h","c"},
-    playStrategy = {"h","minMax"},
+    playerType = {"h","c"}, -- "h" = human, "c" = computer
+    playStrategy = {"h","mixed"}, -- "h or na" = no AI strategty, "random" = picks random square, "minimax" = Minimax unbeatable algo, "mixed" = Will play random until one point from loosing and then switch to minimax.
+    strategySwitchThreshold = 3, -- Number of moves remaining before switching from miniMax to random strategy. 
     winState = 0,
     playerMove = 1,
-    playerShapes = {"x","o"},
-    playerTurnQuipChance = 30,
-    supremeTurnQuipChance = 30,
-    drawDebug = 1,
-    debugTieStackOverflowLimit = 255,
-    maxScore = 10,
+    playerShapes = {"x","o"}, -- Start shapes for player. Must be "x" or "o"
+    playerTurnQuipChance = 30, -- Chance the AI will quip on the players turn. 
+    supremeTurnQuipChance = 30, -- Chance the AI will quip on it's turn. 
+    debugTieStackOverflowLimit = 255, -- Number of ties before showing the kill screen. 
+    maxScore = 10, -- How many points the game is played to. 
     gameOver = 0,
-
+    acceptedWager = 0, -- Has the player accepted Supreme's wager. 
+    resetDisabled = 0, -- Can the users reset. 
+    menuButtonLoc = {20,20}, -- Where is the menu button draw.
+    irisClickCount = 0, -- How many times has the iris been clicked. 
+    irisClickLimit = 10 -- how many times can it be clicked before going to revenge endings
 }
 
 function tictactoe.load()
@@ -41,6 +46,12 @@ function tictactoe.load()
     tictactoe.quipKillScreenLocation = { Game.windowWidth * 0.01, Game.windowHeight * 0.4 }
     tictactoe.quipKillScreenWidth = Game.windowWidth * 0.13
 
+    local dialogueBoxDim = {boardWidth, Game.windowHeight * 0.3 }
+    local dialogueBoxLoc = {
+        ( Game.windowWidth - dialogueBoxDim[1] )/2,
+        ( Game.windowHeight * 0.4 )
+    }
+
     tictactoe.quiper = Quiper:new({
         location = quipLocation,
         maxWidth = quipMaxWidth
@@ -60,11 +71,12 @@ function tictactoe.load()
     tictactoe.scoreBoard = ScoreBoard:new({
         location = { Game.windowWidth * 0.1 , (eyeCenter[2] - eyeRadius) },
         playerNames = Game.playerNames,
-        maxScore = tictactoe.maxScore 
+        maxScore = tictactoe.maxScore,
+        scores = {0,0,0},
     })
 
     tictactoe.debugMenu = DebugMenu:new({
-        location = { tictactoe.board.location[1] + boardWidth + Game.windowWidth *0.05 ,Game.windowHeight * 0.7},
+        location = { tictactoe.board.location[1] + boardWidth + Game.windowWidth *0.02 ,Game.windowHeight * 0.7},
         debugTable = {
             {'DEBUG'},
             {'P1 Type:'},
@@ -72,11 +84,12 @@ function tictactoe.load()
             {'P2 Type:'},
             {'Human','Computer'},
             {'P1 Strategy:'},
-            {'NA','random','miniMax'},
+            {'NA','random','miniMax','mixed'},
             {'P2 Strategy:'},
-            {'NA','random','miniMax'}
+            {'NA','random','miniMax','mixed'}
         },
-        drawDebug = Game.debugMode
+        drawDebug = Game.debugMode,
+        activeTable = {{},{},{1,0},{},{0,1},{},{1,0,0,0},{},{0,0,0,1}},
     })
 
     tictactoe.killScreen = KillScreen:new({
@@ -90,13 +103,35 @@ function tictactoe.load()
         show = 0
     })
 
+    tictactoe.wagerDialogue = WagerDialogue:new({
+        location = {dialogueBoxLoc[1],dialogueBoxLoc[2]},
+        dimensions = {dialogueBoxDim[1],dialogueBoxDim[2]},
+        titleFontSize = 30,
+        bodyFontSize = 25,
+        buttonFontSize = 20,
+        show = 0
+    })
+
+    tictactoe.gameMenu = GameMenu:new({
+        location = {dialogueBoxLoc[1],dialogueBoxLoc[2]},
+        dimensions = {dialogueBoxDim[1],dialogueBoxDim[2]},
+        titleFontSize = 30,
+        bodyFontSize = 25,
+        buttonFontSize = 20,
+        show = 0
+    })
+
     tictactoe.gameOverReset()
 
     if ( Game.playerNames[1] == Game.playerNames[2] ) then
         tictactoe.playerType = {"c","c"}
-        tictactoe.playStrategy = {"minMax","minMax"}
+        tictactoe.playStrategy = {"miniMax","miniMax"}
+    else 
+        tictactoe.playerType = {"h","c"}
+        tictactoe.playStrategy = {"na","mixed"}
     end
 
+    -- tictactoe.reset()
     tictactoe.setDebugMenu() 
 
     if Game.debugMode == 1 then
@@ -104,6 +139,8 @@ function tictactoe.load()
     else 
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("firstPlay") )
     end
+
+
 
 end
 
@@ -127,6 +164,8 @@ function tictactoe.update()
 
     end
 
+    tictactoe.wagerDialogue:update()
+    tictactoe.gameMenu:update()
     tictactoe.quiper:update()
     tictactoe.killScreen:update()
 
@@ -141,6 +180,9 @@ function tictactoe.draw()
     tictactoe.killScreen:draw()
     tictactoe.winnerMessage:draw()
     tictactoe.quiper:draw()
+    tictactoe.wagerDialogue:draw()
+    tictactoe.gameMenu:draw()
+    tictactoe.gameMenu:drawMenuIcon({tictactoe.menuButtonLoc[1],tictactoe.menuButtonLoc[2]})
 
 end
 
@@ -153,15 +195,71 @@ function tictactoe.mousepressed(x, y, button, istouch)
     end
 
     if tictactoe.winState > 0 and tictactoe.scoreBoard:resetClick(x, y) == true then
+        
+        if tictactoe.resetDisabled == 1 then 
+            return
+        end 
+
         tictactoe.reset()
         return
     end
+
+    if tictactoe.wagerDialogue.show == 1 then 
+        
+        local result = tictactoe.wagerDialogue:click(x,y) 
+
+        if result == "accept" then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("wagerAccepted") )
+            tictactoe.toggleWagerDio()
+            tictactoe.acceptedWager = 1
+            return 
+        end
+
+        if result == "decline" then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("wagerDeclined") )
+            tictactoe.toggleWagerDio()
+            return 
+        end
+
+    end
+
+    if tictactoe.gameMenu.show == 1 then 
+        
+        local result = tictactoe.gameMenu:click(x,y) 
+
+        if result == "quit" then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("quit") )
+            return 
+        end
+
+        if result == "userMenu" then
+            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("backToUsername") )
+            return 
+        end
+
+        if result == "close" then
+            tictactoe.toggleGameMenu()
+            return 
+        end
+
+    end
+
+    if Utils:inSquare(x,y,tictactoe.menuButtonLoc[1],tictactoe.menuButtonLoc[2],100,50) then
+        tictactoe.toggleGameMenu()
+    end 
 
 
     local clickedSquare = tictactoe.board:checkSquareClick(x,y)
     
     -- Check to see if someone clicked in a box
-    if clickedSquare > 0 and tictactoe.winState == 0 and tictactoe.playerType[tictactoe.playerMove] == "h" then
+    -- @refactor if statement too convoluted. 
+    if 
+        clickedSquare > 0 and 
+        tictactoe.winState == 0 and 
+        tictactoe.playerType[tictactoe.playerMove] == "h" and 
+        tictactoe.gameMenu.show == 0 and 
+        tictactoe.wagerDialogue.show == 0 
+    then
         if tictactoe.board:updateMoves(clickedSquare,tictactoe.playerShapes[tictactoe.playerMove]) == false then
             return
         end
@@ -175,11 +273,20 @@ function tictactoe.mousepressed(x, y, button, istouch)
     end
 
     if tictactoe.supreme:clickInIris(x,y) then
-        tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+        if  tictactoe.quiper.quipping == 0 then
+            if tictactoe.irisClickCount < tictactoe.irisClickLimit then
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+            else 
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("revenge") )
+            end
+            tictactoe.irisClickCount  = tictactoe.irisClickCount + 1
+        end
+
     end
 
 
 end
+
 
 function tictactoe.processDebugClick(x,y)
 
@@ -227,7 +334,12 @@ function tictactoe.processDebugClick(x,y)
 
     if Utils:tablesMatch( clickInDebugMenu, {7,3} )then 
         tictactoe.playerType[1] = "c"
-        tictactoe.playStrategy[1] = "minMax"
+        tictactoe.playStrategy[1] = "miniMax"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {7,4} )then 
+        tictactoe.playerType[1] = "c"
+        tictactoe.playStrategy[1] = "mixed"
     end 
 
     if Utils:tablesMatch( clickInDebugMenu, {9,1} ) then 
@@ -242,7 +354,12 @@ function tictactoe.processDebugClick(x,y)
 
     if Utils:tablesMatch( clickInDebugMenu, {9,3} ) then 
         tictactoe.playerType[2] = "c"
-        tictactoe.playStrategy[2] = "minMax"
+        tictactoe.playStrategy[2] = "miniMax"
+    end 
+
+    if Utils:tablesMatch( clickInDebugMenu, {9,4} ) then 
+        tictactoe.playerType[2] = "c"
+        tictactoe.playStrategy[2] = "mixed"
     end 
 
     tictactoe.setDebugMenu()
@@ -272,17 +389,37 @@ function tictactoe.processGameState()
     tictactoe.board.winLine = boardWinState
     tictactoe.scoreBoard:updateScore(tictactoe.playerMove)
     tictactoe.updateWinState(tictactoe.playerMove)
-
+    
+    if 
+    tictactoe.scoreBoard.scores[tictactoe.playerMove] == tictactoe.maxScore - 1 and 
+    Game.debugMode == 0 and 
+    tictactoe.playerType[tictactoe.playerMove] == "h" 
+    then
+        tictactoe.toggleWagerDio()
+    end
 
 end
+
 
 function tictactoe.evaluteTieOverflowEndgame()
 
     if tictactoe.scoreBoard.scores[3] >= tictactoe.debugTieStackOverflowLimit then
+        
         tictactoe.killScreen.show = 1
         tictactoe.quiper.location = tictactoe.quipKillScreenLocation
+        
+        if Game.playerNames[1] == Game.playerNames[2] then
+            Game.save[5][2] = "1"
+            Game.updateSave()
+        else 
+            Game.save[8][2] = "1"
+            Game.updateSave()
+        end
+
         tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("bufferOverflow") )
     end 
+
+
         
 end
 
@@ -344,13 +481,27 @@ end
 
 function tictactoe.processAiMove()
 
-    if tictactoe.playStrategy[tictactoe.playerMove] == "random" then 
+    local availableMoves = RandomMove.getAvailableMoves(tictactoe.board.moves)
+    local playStategy = ""
+
+    -- Supereme never loses. If he is about to lose then he changes his strategy to miniMax unless his strategy has been set to 'random' in debug.
+    if tictactoe.scoreBoard.scores[1] == tictactoe.maxScore - 1 and tictactoe.playStrategy[tictactoe.playerMove] ~= "random" then 
+        playStategy = "miniMax"
+    elseif tictactoe.playStrategy[tictactoe.playerMove] == "mixed" and #availableMoves > tictactoe.strategySwitchThreshold then
+        playStategy = "miniMax"
+    elseif tictactoe.playStrategy[tictactoe.playerMove] == "mixed" and #availableMoves <= tictactoe.strategySwitchThreshold then
+        playStategy = "random"
+    else 
+        playStategy = tictactoe.playStrategy[tictactoe.playerMove]
+    end
+
+    if playStategy == "random" then 
         local nextMove = RandomMove.chooseRandomMove(tictactoe.board.moves)
         tictactoe.board.moves[nextMove] = tictactoe.playerShapes[tictactoe.playerMove]
     end
 
-    if tictactoe.playStrategy[tictactoe.playerMove] == "minMax" then 
-        local nextMove = MinMaxMove.chooseBestMove(tictactoe.board.moves)
+    if playStategy == "miniMax" then 
+        local nextMove = MiniMaxMove.chooseBestMove(tictactoe.board.moves)
         tictactoe.board.moves[nextMove] = tictactoe.playerShapes[tictactoe.playerMove]
     end
 
@@ -368,7 +519,12 @@ function tictactoe.textinput(text)
         return
     end
 
-    if text == "r" then
+    if text == "r" or text == "R" then
+
+        if tictactoe.resetDisabled == 1 then 
+            return
+        end 
+
         if tictactoe.gameOver == 1 then 
             -- If the player is the winner then the game will reset itself after going through the credits 
             -- so we don't allow the player to reset manually. 
@@ -388,15 +544,47 @@ end
 
 function tictactoe.reset()
 
-
     tictactoe.winState = 0
     tictactoe.playerMove = 1
-    tictactoe.playerMove = 1
+    tictactoe.wagerDialogue.show = 0
+    tictactoe.resetDisabled = 0
     tictactoe.board:resetBoard() 
     tictactoe.scoreBoard:reset() 
     tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playReset") )
 
 end
+
+function tictactoe.toggleWagerDio()
+
+    if tictactoe.wagerDialogue.show == 0 then 
+
+        tictactoe.wagerDialogue.show = 1
+        tictactoe.board.show = 0
+
+    else 
+
+        tictactoe.wagerDialogue.show = 0
+        tictactoe.board.show = 1
+
+    end
+
+end 
+
+function tictactoe.toggleGameMenu()
+
+    if tictactoe.gameMenu.show == 0 then 
+
+        tictactoe.gameMenu.show = 1
+        tictactoe.board.show = 0
+
+    else 
+
+        tictactoe.gameMenu.show = 0
+        tictactoe.board.show = 1
+
+    end
+
+end 
 
 function tictactoe.updateWinState(newWinState)
 
@@ -404,14 +592,22 @@ function tictactoe.updateWinState(newWinState)
     tictactoe.scoreBoard.winState = newWinState
 
     if tictactoe.scoreBoard.scores[1] >= tictactoe.maxScore or tictactoe.scoreBoard.scores[2] >= tictactoe.maxScore then
-
+        print( "tictactoe.acceptedWager",tictactoe.acceptedWager )
         if newWinState == 2 then
-            tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeGameWin") )
+            if tictactoe.acceptedWager == 0 then 
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeGameWin") )
+            else
+                tictactoe.resetDisabled = 1  
+                tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("supremeWonWager") ) 
+            end
         end 
     
         if newWinState == 1 then
             tictactoe.quiper:loadQuip(QuipManager.getRandomQuip("playerGameWin") )
+            Game.save[1][2] = "1"
+            Game.updateSave()   
         end
+
         tictactoe.gameIsOver()
         return
     end
@@ -434,6 +630,8 @@ function tictactoe.updateWinState(newWinState)
     if ( Game.playerNames[1] == Game.playerNames[2] ) then
         tictactoe.reset()
     end
+
+    
 
     
     
@@ -459,11 +657,13 @@ end
 function tictactoe.gameOverReset()
 
     tictactoe.playerType = {"h","c"}
-    tictactoe.playStrategy = {"h","minMax"}
+    tictactoe.playStrategy = {"h","mixed"}
     tictactoe.scoreBoard.scores = {0,0,0}
     tictactoe.reset()
     tictactoe.gameOver = 0
     tictactoe.board.show = 1
+    tictactoe.wagerDialogue.show = 0
+    tictactoe.acceptedWager = 0
 
     if tictactoe.winnerMessage.show == 1 then
         tictactoe.winnerMessage:toggle()
@@ -474,6 +674,7 @@ end
 
 function tictactoe.setDebugMenu()
 
+    print(tictactoe.playerType[1],tictactoe.playerType[2] )
     tictactoe.debugMenu.activeTable[1] = {0}
     tictactoe.debugMenu.activeTable[2] = {0}
     
@@ -494,21 +695,25 @@ function tictactoe.setDebugMenu()
     tictactoe.debugMenu.activeTable[6] = {0}
 
     if tictactoe.playerType[1] == 'h' then
-        tictactoe.debugMenu.activeTable[7] = {1,0,0}
-    elseif tictactoe.playStrategy[1] == 'minMax' then
-        tictactoe.debugMenu.activeTable[7] = {0,0,1}
+        tictactoe.debugMenu.activeTable[7] = {1,0,0,0}
+    elseif tictactoe.playStrategy[1] == 'miniMax' then
+        tictactoe.debugMenu.activeTable[7] = {0,0,1,0}
+    elseif tictactoe.playStrategy[1] == 'mixed' then
+        tictactoe.debugMenu.activeTable[7] = {0,0,0,1}
     else
-        tictactoe.debugMenu.activeTable[7] = {0,1,0}
+        tictactoe.debugMenu.activeTable[7] = {0,1,0,0}
     end
 
     tictactoe.debugMenu.activeTable[8] = {0}
 
     if tictactoe.playerType[2] == 'h' then
-        tictactoe.debugMenu.activeTable[9] = {1,0,0}
-    elseif tictactoe.playStrategy[2] == 'minMax' then
-        tictactoe.debugMenu.activeTable[9] = {0,0,1}
+        tictactoe.debugMenu.activeTable[9] = {1,0,0,0}
+    elseif tictactoe.playStrategy[2] == 'miniMax' then
+        tictactoe.debugMenu.activeTable[9] = {0,0,1,0}
+    elseif tictactoe.playStrategy[2] == 'mixed' then
+        tictactoe.debugMenu.activeTable[9] = {0,0,0,1}
     else
-        tictactoe.debugMenu.activeTable[9] = {0,1,0}
+        tictactoe.debugMenu.activeTable[9] = {0,1,0,0}
     end
 
 end 

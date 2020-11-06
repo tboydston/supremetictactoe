@@ -8,12 +8,8 @@ quip.actions = {
     },
     {
         action="say",
-        value="Jerk!!"
+        value="Jerk!"
     },
-    {
-        action="pause",
-        value="2"
-    }, 
     {
         action="end"
     }

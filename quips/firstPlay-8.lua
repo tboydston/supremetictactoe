@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="If you don't pick a square soon, I will."
+        value="If you don't pick a square soon, I will pick one for you."
     },
     {
         action="pause",

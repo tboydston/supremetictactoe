@@ -11,10 +11,6 @@ quip.actions = {
         value="Oh, you must have clicked that square by mistake."
     },
     {
-        action="pause",
-        value="2"
-    },
-    {
         action="end"
     }
 }

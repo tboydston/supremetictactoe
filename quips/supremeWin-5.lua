@@ -12,7 +12,7 @@ quip.actions = {
     },
     {
         action="pause",
-        value="2"
+        value="1"
     },
     {
         action="clearQuip",
@@ -20,10 +20,6 @@ quip.actions = {
     {
         action="say",
         value="You are supposed to get 3 X's in a row."
-    },
-    {
-        action="pause",
-        value="2"
     },
     {
         action="end"

@@ -22,10 +22,6 @@ quip.actions = {
         value="Oh, you made that move on purpose."
     },
     {
-        action="pause",
-        value="2"
-    }, 
-    {
         action="end"
     }
 }

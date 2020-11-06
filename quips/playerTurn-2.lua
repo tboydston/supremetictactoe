@@ -33,10 +33,6 @@ quip.actions = {
         value="Just kidding."
     },
     {
-        action="pause",
-        value="1"
-    },
-    {
         action="end"
     }
 }

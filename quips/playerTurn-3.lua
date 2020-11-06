@@ -11,10 +11,6 @@ quip.actions = {
         value="Ouch, not a great choice."
     },
     {
-        action="pause",
-        value="2"
-    },
-    {
         action="end"
     }
 }

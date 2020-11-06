@@ -2,7 +2,9 @@ local getUsername = {
     backgroundColor = {1,1,1},
     playerName = {"",Game.playerNames[2]},
     submitting = 0,
-    nameCrashLength = 32
+    nameCrashLength = 32,
+    irisClickCount = 0, -- How many times has the iris been clicked. 
+    irisClickLimit = 10 -- how many times can it be clicked before going to revenge endings
 }
 
 getUsername.possiblePlayerNames = {
@@ -15,30 +17,22 @@ getUsername.possiblePlayerNames = {
 }
 
 getUsername.creatorNames = {
-    "Tracey",
-    "tracey",
     "Tracey Boydston",
     "tracey boydston",
-    "Grant",
-    "grant",
     "Grant Brown",
     "grant brown",
-    "GRANT THE GREAT!!!"
+    "GRANT THE GREAT!!!",
+    "Riley Boydston",
+    "riley boydston",
+    "Stuart Grinnel",
+    "stuart grinnel",
+    "Tracey",
+    "chunkysoup",
 }
 
-getUsername.creatorNames = {
-    "Tracey",
-    "tracey",
-    "Tracey Boydston",
-    "tracey boydston",
-    "Grant",
-    "grant",
-    "Grant Brown",
-    "grant brown"
-}
 
 function getUsername.load()
-
+    
     local eyeCenter = {Game.windowWidth * 0.5,Game.windowHeight * 0.15}
     local eyeRadius = Game.windowWidth * 0.05
     
@@ -72,6 +66,10 @@ function getUsername.load()
         show = Game.debugMode    
     })
 
+    getUsername.endingStatus = EndingStatus:new({
+        location = {50,600}
+    })
+
     getUsername.quiper:loadQuip(QuipManager.getRandomQuip("getUsername") )
 
     love.graphics.setBackgroundColor( getUsername.backgroundColor[1], getUsername.backgroundColor[2], getUsername.backgroundColor[3] )
@@ -90,6 +88,7 @@ function getUsername.draw()
     getUsername.supreme:draw()
     getUsername.quiper:draw()
     getUsername.debugNotation:draw()
+    getUsername.endingStatus:draw()
 
 end
 
@@ -100,8 +99,15 @@ function getUsername.mousepressed(x, y, button, istouch)
     end
 
     if getUsername.supreme:clickInIris(x,y) then
-        print("click in iris")
-        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+        if  getUsername.quiper.quipping == 0 then
+            if getUsername.irisClickCount < getUsername.irisClickLimit then
+                getUsername.quiper:loadQuip(QuipManager.getRandomQuip("clickInIris") )
+            else 
+                Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
+                getUsername.quiper:loadQuip(QuipManager.getRandomQuip("usernameIrisOverclick") )
+            end
+            getUsername.irisClickCount  = getUsername.irisClickCount + 1
+        end
     end
 
 end
@@ -145,23 +151,31 @@ function getUsername.submit()
         Game.playerNames[1] = getUsername.form.inputText
         Game.debugMode = 1
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("creatorNameSubmitted") )
+        Game.save[4][2] = "1"
+        Game.updateSave()   
         return
     end
 
     if #getUsername.form.inputText > 16 and #getUsername.form.inputText <= getUsername.nameCrashLength then
         Game.playerNames[1] = getUsername.possiblePlayerNames[math.random(1,#getUsername.possiblePlayerNames)]
         getUsername.quiper:loadQuip(QuipManager.getRandomQuip("userNameTooLong") )
+
         return
     end
 
     if #getUsername.form.inputText >= getUsername.nameCrashLength then
+        Game.save[7][2] = "1"
+        Game.updateSave()   
         SceneManager.change('restarting')
     end
 
     Game.playerNames[1] = getUsername.form.inputText
 
-    getUsername.quiper:loadQuip(QuipManager.getRandomQuip("nameSubmitted") )
-
+    if Game.playerNames[1] == Game.playerNames[2] then 
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("sameName") ) 
+    else
+        getUsername.quiper:loadQuip(QuipManager.getRandomQuip("nameSubmitted") )
+    end
 end
 
 return getUsername

@@ -11,10 +11,6 @@ quip.actions = {
         value="Over already?"
     },
     {
-        action="pause",
-        value="2"
-    },
-    {
         action="end"
     }
 }

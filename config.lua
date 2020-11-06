@@ -1,6 +1,6 @@
 local config = {
     debug = 0,
-    startScene = "loading",
+    startScene = "getUsername",
     screenSize = {1024,768}
 }
 
