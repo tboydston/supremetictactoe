@@ -30,7 +30,7 @@ quip.actions = {
     }, 
     {
         action="say",
-        value="Common, just do it!"
+        value="Come on, just do it!"
     },
     {
         action="pause",
