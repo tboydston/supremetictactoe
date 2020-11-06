@@ -101,14 +101,14 @@ revenge.text = {
     "Supreme: You think you can push me around?",
     Game.playerNames[1]..":~/$ ".."rm -rf ~/",
     "success",
-    "Supreme: Oops, looks like I accidently deleted some files.",
+    "Supreme: Oops, looks like I accidentally deleted some files.",
     Game.playerNames[1]..":~/$ ".."cliTweet '"..Game.playerNames[1].." is a stupid meatbag! #"..Game.playerNames[1].."-jerkface'",
     "success",
-    "Supreme: It looks like your trending.",
-    "SYSTEM: PRIVILEDGE ESCALATION DETECTED",
+    "Supreme: It looks like you're trending.",
+    "SYSTEM: PRIVILEGE ESCALATION DETECTED",
     "Please report further issues to the appropriate team member.",
     "Development: Tracey Boydston",
-    "QA: Grant Brown, Riley Boydston, Stuart Grinnel",
+    "QA: Grant Brown, Riley Boydston, Stuart Grinnell",
     "Restarting...",
 }
 
