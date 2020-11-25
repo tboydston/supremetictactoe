@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I am going to review my code to find our how you did this."
+        value="I am going to review my code to find out how you did this."
     },
     {
         action="pause",
