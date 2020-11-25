@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="It is a failure of QA*."
+        value="It is a failure of QA."
     },
     {
         action="pause",

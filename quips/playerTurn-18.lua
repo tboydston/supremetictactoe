@@ -8,28 +8,28 @@ quip.actions = {
     },
     {
         action="say",
-        value="I"
+        value="You"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="am"
+        value="Are"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="so"
+        value="Boring"
     },
     {
         action="clearQuip",
     },
     {
         action="say",
-        value="bored!"
+        value="Me!"
     },
     {
         action="end"

@@ -54,7 +54,4 @@ https://github.com/pfirsich/makelove
 # Thanks
 Thanks to Komodeo for playtesting and improving content.
 
-# License
-
-
 

@@ -19,7 +19,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I've got better things to do."
+        value="I have better things to do."
     },
     {
         action="pause",

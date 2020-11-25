@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="I'll bet you got picked on a lot in school with that name."
+        value="I bet you got picked on a lot in school with that name."
     },
     {
         action="pause",
