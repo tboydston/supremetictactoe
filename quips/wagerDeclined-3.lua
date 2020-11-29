@@ -8,7 +8,7 @@ quip.actions = {
     },
     {
         action="say",
-        value="Common!! live a little."
+        value="Come on!! Live a little."
     },
     {
         action="pause",

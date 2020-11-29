@@ -11,6 +11,10 @@ quip.actions = {
         value="You"
     },
     {
+        action="pause",
+        value="1"
+    },
+    {
         action="clearQuip",
     },
     {
@@ -18,11 +22,19 @@ quip.actions = {
         value="Are"
     },
     {
+        action="pause",
+        value="1"
+    },
+    {
         action="clearQuip",
     },
     {
         action="say",
         value="Boring"
+    },
+    {
+        action="pause",
+        value="1"
     },
     {
         action="clearQuip",
